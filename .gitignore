@@ -1,0 +1,4 @@
+.DS_Store
+oh-my-zsh
+zsh/plugins/zsh-autosuggestions
+zsh/plugins/zsh-syntax-highlighting
