@@ -29,6 +29,8 @@ Plugin 'ap/vim-css-color'
 " Vim tag bar
 Plugin 'majutsushi/tagbar'
 
+Plugin 'tpope/vim-surround'
+
 " Onedark atom theme
 Plugin 'joshdick/onedark.vim'
 
@@ -42,8 +44,7 @@ Plugin 'Shougo/deoplete.nvim'
 " Python completer
 Plugin 'deoplete-plugins/deoplete-jedi'
 
-" Clang completer
-Plugin 'deoplete-plugins/deoplete-clang'
+Plugin 'kana/vim-arpeggio'
 
 " Auto fill closer chracters
 Plugin 'jiangmiao/auto-pairs'
@@ -56,6 +57,9 @@ Plugin 'tpope/vim-fugitive'
 
 " Helper for UNIX
 Plugin 'tpope/vim-eunuch'
+
+" Typescript completer
+Plugin 'mhartington/nvim-typescript'
 
 " Test vim
 Plugin 'janko/vim-test'

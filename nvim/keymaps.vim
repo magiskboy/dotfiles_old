@@ -1,13 +1,16 @@
-nmap <F8> :TagbarToggle<CR>
-nmap <TAB> :NERDTreeToggle<CR>
-nmap <c-e> :ALENext<CR>
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+nmap <f8> :TagbarToggle<cr>
+nmap <tab> :NERDTreeToggle<cr>
+nmap <c-e> :ALENext<cr>
+inoremap <expr><tab>  pumvisible() ? "\<c-n>" : "\<tab>"
 
-nmap <c-n> :TestNearest<CR>
-nmap <c-f> :TestFile<CR>
-nmap <c-s> :TestSuite<CR>
+" vim test
+nmap <c-n> :TestNearest<cr>
+nmap <c-f> :TestFile<cr>
+nmap <c-s> :TestSuite<cr>
 
-nmap <c-o> :CtrlPTag<CR>
+" ctrlp
+nmap <c-t> :CtrlPTag<cr>
+nmap <c-l> :CtrlPLine<cr>
 
 nnoremap <space> za
 

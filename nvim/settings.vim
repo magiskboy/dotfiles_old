@@ -30,11 +30,14 @@ let g:airline_extensions = ['branch', 'hunks', 'ale']
 " Do not draw separators for empty sections (only for the active window) >
 let g:airline_skip_empty_sections = 1
 
-" Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-
 " Format vim airline
 let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'y', 'z', 'warning', 'error']]
+
+" format tabline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " Add clock in status line
 function! AirlineInit()
