@@ -3,6 +3,7 @@ install-base:
 	brew install --HEAD neovim
 
 install-nvim:
+	rm -rf ~/.vim
 	rm -rf ~/.config/nvim
 	ln -sf `pwd`/nvim ~/.config/nvim
 
