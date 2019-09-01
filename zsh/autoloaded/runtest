@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+branch=$1
+submit=$2
+for file in $(rg -l "SC-$branch"); do
+    if [[ ! -z $submit ]]; then
+        pytest $file --submit
+    else
+        pytest $file
+    fi
+done

@@ -1,0 +1,126 @@
+#!/bin/bash
+
+LOCAL=$HOME/.local
+MAVEN_VERSION=3.6.3
+GO_VERSION=1.14.2
+OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+
+function setup_base() {
+    [[ -d $LOCAL/bin ]] && mkdir $LOCAL/bin
+    if [[ $OS == "linux" ]]; then
+	BATURL=https://github.com/sharkdp/bat/releases/download/v0.11.0/bat_0.11.0_amd64.deb
+	curl -fLO $BATURL && sudo dpkg -i $(basename $BATURL) && rm -f $(basename $BATURL)
+        sudo apt install tldr ripgrep exuberant-ctags tree htop git curl fzf \
+            pgcli mycli fd-find zsh tmux nodejs npm libffi-dev zlib1g-dev \
+            libbz2-dev libsqlite3-dev #@TODO install ccls
+    else
+        brew install bat tldr ripgrep ctags tree htop git curl fzf \
+            pgcli mycli fdfind zsh tmux ccls node npm
+    fi
+    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+}
+
+function setup_docker() {
+    sudo apt install -y docker.io && \
+        sudo groupadd -f docker && \
+        sudo usermod -aG docker $USER && \
+        mkdir -p $HOME/.docker && \
+        sudo chown "$USER":"$USER" $HOME/.docker -R && \
+        sudo chmod g+rwx "$HOME/.docker" -R && \
+        sudo systemctl restart docker
+    docker_compose_url="https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)"
+    docker_compose_out=$LOCAL/bin/docker-compose
+    curl -Lo $docker_compose_url $docker_compose_out && chmod +x $docker_compose_out
+}
+
+function setup_ssh() {
+    [[ ! -d $HOME/.ssh ]] && mkdir $HOME/.ssh
+    ln -sf $(pwd)/ssh-config $HOME/.ssh/config
+    ssh-keygen -f $HOME/.ssh/id_rsa
+}
+
+function setup_neovim() {
+    PY_PACKAGE="pynvim psutil jedi pylint"
+    python -m pip install --user $PY_PACKAGE && \
+    python3 -m pip install --user $PY_PACKAGE
+    rm -rf ~/.vim ~/.config/nvim && \
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    ln -sf $(pwd)/nvim ~/.config/nvim
+}
+
+function setup_java() {
+    MAVEN_URL=https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.zip
+    FILENAME=$(basename $MAVEN_URL)
+    curl -LO $MAVEN_URL && \
+    unzip $FILENAME -d $LOCAL && \
+    ln -sf $LOCAL/apache-maven-$MAVEN_VERSION/bin/mvn $LOCAL/bin/mvn
+    rm -f $FILENAME
+}
+
+function setup_go() {
+    GO_URL=https://dl.google.com/go/go$GO_VERSION.darwin-amd64.tar.gz
+    FILENAME=$(basename $GO_URL)
+    curl -LO $GO_URL && \
+    tar -xzf $FILENAME -C $LOCAL && \
+    rm -f $FILENAME
+}
+
+function setup_utility() {
+    # dot file for mycli, pgcli
+    rm -rf ~/.myclirc ~/.config/pgcli
+    ln -sf `pwd`/dbcli/myclirc ~/.myclirc
+    mkdir -p ~/.config/pgcli
+    ln -sf `pwd`/dbcli/pgclirc ~/.config/pgcli/config
+
+    # setup git tools
+    DIFF_SO_FANCY_URL=https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
+    NAME=$(basename $DIFF_SO_FANCY_URL)
+    curl -O $DIFF_SO_FANCY_URL && mv $NAME $LOCAL/bin/$NAME && \
+    chmod +x $LOCAL/bin/$NAME
+    ln -sf $(pwd)/git/gitconfig ~/.gitconfig
+
+    # setup tmux tools
+    rm -rf ~/.tmux.conf && \
+    ln -sf $(pwd)/tmux/tmux.conf ~/.tmux.conf
+
+    # setup bash
+    rm -rf $HOME/.bashrc $HOME/.profile
+    ln -sf $(pwd)/bash/bashrc $HOME/.bashrc
+    ln -sf $(pwd)/bash/bash_profile $HOME/.bash_profile
+}
+
+function setup_zsh() {
+    rm -rf ~/.zshrc ~/.oh-my-zsh ~/.zshrc ~/.zshenv ~/.zlogin ~/.zprofile && \
+    ln -sf $(pwd)/zsh/zshrc $HOME/.zshrc && \
+    ln -sf $(pwd)/zsh/oh-my-zsh $HOME/.oh-my-zsh && \
+    ln -sf $(pwd)/zsh/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions && \
+    ln -sf $(pwd)/zsh/zsh-syntax-highlighting $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && \
+    ln -sf $(pwd)/zsh/themes/nkthanh.zsh-theme $HOME/.oh-my-zsh/custom/themes
+    ln -sf $(pwd)/zsh/zlogin $HOME/.zlogin
+    ln -sf $sf $(pwd)/zsh/zprofile $HOME/.zprofile
+    ln -sf $sf $(pwd)/zsh/zshenv $HOME/.zshenv
+    ln -sf $sf $(pwd)/zsh/zshrc $HOME/.zshrc
+}
+
+function setup_font() {
+    local FONTDIR
+    if [[ $OS == "darwin" ]]; then
+        FONTDIR=$HOME/Library/Fonts
+    else
+        FONTDIR=$LOCAL/share/fonts
+    fi
+    [ -d $FONTDIR ] && mkdir -p $FONTDIR
+    curl -fLo "$FONTDIR/Hack Nerd Font Complete.otf" \
+        https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf
+}
+
+function setup_nvidia() {
+    if [[ $OS == "linux" ]]; then
+        sudo apt-get install linux-headers-$(uname -r) nvidia-legacy-390xx-driver
+    fi
+}
+
+for state in $@; do
+    eval "setup_$state"
+done
