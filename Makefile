@@ -15,9 +15,7 @@ install-bash:
 	ln -sf `pwd`/bash/bashrc ~/.bashrc
 
 install-zsh:
-	rm -rf `pwd`/oh-my-zsh/custom/*
 	rm -rf ~/.zshrc
-	ln -sf `pwd`/oh-my-zsh ~/.oh-my-zsh
+	rm -rf ~/.oh-my-zsh
+	ln -sf `pwd`/zsh/oh-my-zsh ~/.oh-my-zsh
 	ln -sf `pwd`/zsh/zshrc ~/.zshrc
-	ln -sf `pwd`/zsh/plugins ~/.oh-my-zsh/custom/plugins
-	ln -sf `pwd`/zsh/themes ~/.oh-my-zsh/custom/themes
