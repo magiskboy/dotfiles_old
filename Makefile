@@ -15,6 +15,12 @@ install-bash:
 	rm -rf ~/.bashrc
 	ln -sf `pwd`/bash/bashrc ~/.bashrc
 
+install-tmux:
+	rm -rf ~/.tmux
+	rm -f ~/.tmux.conf
+	ln -sf `pwd`/tmux ~/.tmux
+	ln -sf `pwd`/tmux/tmux.conf ~/.tmux.conf
+
 install-zsh:
 	rm -rf ~/.zshrc
 	rm -rf ~/.oh-my-zsh
