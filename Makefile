@@ -1,6 +1,7 @@
 install-base:
-	brew install tree zsh python3 pipenv pyenv htop ctags
-	brew install --HEAD neovim
+	sudo apt install neovim tree zsh python3 htop ctags python-pip python3-pip python-dev python3-dev
+	pip install --user pynvim
+	pip install --user pynvim
 
 install-nvim:
 	rm -rf ~/.vim

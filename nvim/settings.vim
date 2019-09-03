@@ -104,7 +104,7 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 
 " Deoplete
 let g:deoplete#enable_at_startup = 0
-let g:python3_host_prog = expand('/usr/local/bin/python3')
+let g:python3_host_prog = expand('/usr/bin/python3')
 let g:python_host_prog = expand('/usr/bin/python')
 
 " =========== Jedi ===============
