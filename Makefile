@@ -19,7 +19,8 @@ install-tmux:
 	rm -rf ~/.tmux
 	rm -f ~/.tmux.conf
 	ln -sf `pwd`/tmux ~/.tmux
-	ln -sf `pwd`/tmux/tmux.conf ~/.tmux.conf
+	ln -sf `pwd`/tmux/config/.tmux.conf ~/.tmux.conf
+	ln -sf `pwd`/tmux/config/.tmux.conf.local ~/.tmux.conf.local
 
 install-zsh:
 	rm -rf ~/.zshrc

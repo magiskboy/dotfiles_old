@@ -4,3 +4,9 @@
 [submodule "zsh/oh-my-zsh"]
 	path = zsh/oh-my-zsh
 	url = https://github.com/nkthanh98/oh-my-zsh
+[submodule "tmux/plugins/tpm"]
+	path = tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule "tmux/config"]
+	path = tmux/config
+	url = https://github.com/gpakosz/.tmux
