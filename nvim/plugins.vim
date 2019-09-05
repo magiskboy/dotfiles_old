@@ -50,7 +50,7 @@ Plugin 'kana/vim-arpeggio'
 Plugin 'jiangmiao/auto-pairs'
 
 " File search
-Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 
 " Git wrapper
 Plugin 'tpope/vim-fugitive'

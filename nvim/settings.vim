@@ -7,6 +7,10 @@ let g:indentLine_color_term = 239
 
 " Ignore file follow gitignore for ctrlp
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard',]
+let g:ctrlp_prompt_mappings = {
+    \'PrtSelectMove("j")': ['<up>', '<up>'],
+    \'PrtSelectMove("k")': ['<down>', '<down>']
+    \}
 
 " ============= NERD Tree ===============
 " Ignore entries for NERDTree
