@@ -4,9 +4,9 @@ nmap <c-e> :ALENext<cr>
 inoremap <expr><tab>  pumvisible() ? "\<c-n>" : "\<tab>"
 
 " vim test
-nmap <c-n> :TestNearest<cr>
-nmap <c-f> :TestFile<cr>
-nmap <c-s> :TestSuite<cr>
+nmap <c-t><c-n> :TestNearest<cr>
+nmap <c-t><c-f> :TestFile<cr>
+nmap <c-t><c-s> :TestSuite<cr>
 
 " ctrlp
 nmap <c-t> :CtrlPTag<cr>
