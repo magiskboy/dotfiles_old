@@ -8,6 +8,7 @@ plugins=(
   virtualenv
   git
   mvn
+  django
   docker
   zsh-autosuggestions
   zsh-syntax-highlighting
@@ -32,6 +33,7 @@ export JRE_PATH=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Ho
 export M2_HOME=/usr/local/opt/apache-maven-3.6.1
 export M2=$M2_HOME/bin
 export PATH=$M2:$PATH
+export PATH=$HOME/.iterm2:$PATH
 
 # Setting language and encoder
 export LC_ALL=en_US.UTF-8
