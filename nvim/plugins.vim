@@ -61,6 +61,8 @@ Plugin 'tpope/vim-eunuch'
 " Typescript completer
 Plugin 'mhartington/nvim-typescript'
 
+Plugin 'tweekmonster/django-plus.vim'
+
 " Test vim
 Plugin 'janko/vim-test'
 
