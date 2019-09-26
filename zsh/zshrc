@@ -8,6 +8,7 @@ plugins=(
   virtualenv
   git
   mvn
+  django
   docker
   zsh-autosuggestions
   zsh-syntax-highlighting
@@ -29,7 +30,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 # Setting java and maven
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export JRE_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre
-export M2_HOME=/usr/local/opt/apache-maven-3.6.1
+export M2_HOME=$HOME/.local/apache-maven-3.6.1
 export M2=$M2_HOME/bin
 export PATH=$M2:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
