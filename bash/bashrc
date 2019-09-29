@@ -95,6 +95,35 @@ shopt -s histappend
 # Make sure window sizes update correctly.
 shopt -s checkwinsize
 
+# Aliases
+# Alias git
+alias g="git"
+alias gst="git status"
+alias gco="git checkout"
+alias gb="git branch"
+alias ga="git add"
+alias gaa="git add ."
+alias gc="git commit"
+alias gpu="git push"
+
+# Alias docker
+alias do="docker"
+alias doi="docker image"
+alias dois="docker images"
+alias doc="docker container"
+alias dop="docker pull"
+alias don="docker network"
+alias dov="docker volumn"
+alias dop="docker ps"
+alias dopr="docker mage prune && docker container prune && \
+            docker network prune && docker docker volumn prune"
+
+alias md="mkdir"
+alias di="du -sh"
+alias si="df -h"
+alias gr="grep -iRl"
+alias gcf="grep -iRl \"<<<<<<<\" **/*.*"
+
 # Completions
 if [ -f /usr/local/git/contrib/completion ]; then
   . /usr/local/git/contrib/completion/git-completion.bash

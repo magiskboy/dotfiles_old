@@ -8,6 +8,7 @@ plugins=(
   virtualenv
   git
   mvn
+  django
   docker
   zsh-autosuggestions
   zsh-syntax-highlighting
