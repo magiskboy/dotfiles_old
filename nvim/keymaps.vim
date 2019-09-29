@@ -8,9 +8,11 @@ nmap <c-t><c-n> :TestNearest<cr>
 nmap <c-t><c-f> :TestFile<cr>
 nmap <c-t><c-s> :TestSuite<cr>
 
-" ctrlp
-nmap <c-t> :CtrlPTag<cr>
-nmap <c-l> :CtrlPLine<cr>
+" Search all class definitions
+nmap <c-s><c-t> /class \(\u\w\+\)( *\u\w\+ *)<cr>
+
+" serach definitions in project
+nmap <c-d> :CtrlPTag<cr>
 
 nnoremap <space> za
 

@@ -5,7 +5,13 @@ install-base:
 install-nvim:
 	rm -rf ~/.vim
 	rm -rf ~/.config/nvim
+	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	ln -sf `pwd`/nvim ~/.config/nvim
+
+install-vim:
+	rm -rf ~/.vimrc
+	ln -sf `pwd`/vim/vimrc ~/.vimrc
 
 install-git:
 	ln -sf `pwd`/git/gitconfig ~/.gitconfig
