@@ -121,3 +121,9 @@ let test#strategy = {
   \ 'file':    'neovim',
   \ 'suite':   'basic',
 \}
+
+"========== vim-pudb ============
+if has('nvim')
+    let g:pudb_breakpoint_symbol='☠'
+    let g:pudb_python_launcher='/usr/bin/python3'
+endif

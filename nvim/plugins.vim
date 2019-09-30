@@ -56,6 +56,8 @@ Plug 'tpope/vim-eunuch'
 " Test vim
 Plug 'janko/vim-test'
 
+Plug 'SkyLeach/pudb.vim'
+
 call plug#end()
 
 filetype on
