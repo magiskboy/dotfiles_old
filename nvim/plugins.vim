@@ -1,69 +1,61 @@
 filetype off
 
-set rtp+=~/.config/nvim/bundle/Vundle.vim
+set rtp+=~/.config/nvim/bundle/vim-plug
 
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/bundle')
 
 " =================== UI =======================
-
 " File explore
- Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
 " Solid pack language syntax highlight
-Plugin 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 
 " Show changed git status in sign column
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 
 " Indent guild line
-Plugin 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 
 " Vim modern status line
-Plugin 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
 
 " Preview color in css
-Plugin 'ap/vim-css-color'
+Plug 'ap/vim-css-color'
 
 " Vim tag bar
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
 " Onedark atom theme
-Plugin 'joshdick/onedark.vim'
+Plug 'joshdick/onedark.vim'
 
 " ================ Utilities ==================
 " Asynchronous syntax checker
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 
 " Code completion engine
-Plugin 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 
 " Python completer
-Plugin 'deoplete-plugins/deoplete-jedi'
-
-Plugin 'kana/vim-arpeggio'
+Plug 'deoplete-plugins/deoplete-jedi'
 
 " Auto fill closer chracters
-Plugin 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 
 " File search
-Plugin 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 
 " Git wrapper
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " Helper for UNIX
-Plugin 'tpope/vim-eunuch'
-
-" Typescript completer
-Plugin 'mhartington/nvim-typescript'
+Plug 'tpope/vim-eunuch'
 
 " Test vim
-Plugin 'janko/vim-test'
+Plug 'janko/vim-test'
 
-call vundle#end()
+call plug#end()
 
 filetype on

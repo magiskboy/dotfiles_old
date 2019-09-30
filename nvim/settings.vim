@@ -109,8 +109,15 @@ let g:python_host_prog = expand('/usr/bin/python')
 
 " =========== Jedi ===============
 let g:deoplete#sources#jedi#enable_typeinfo = 1
-let g:deoplete#sources#jedi#show_docstring = 0
+let g:deoplete#sources#jedi#show_docstring = 1
 
 " =========== Clang ==============
 let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 let g:deoplete#sources#clang#clang_header = '/usr/local/Cellar/llvm/8.0.0_1/lib/clang/8.0.0/include'
+
+" ========== vim-tets ============
+let test#strategy = {
+  \ 'nearest': 'neovim',
+  \ 'file':    'neovim',
+  \ 'suite':   'basic',
+\}
