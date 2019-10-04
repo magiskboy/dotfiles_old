@@ -8,11 +8,10 @@ nmap <c-t><c-n> :TestNearest<cr>
 nmap <c-t><c-f> :TestFile<cr>
 nmap <c-t><c-s> :TestSuite<cr>
 
-" Search all class definitions
-nmap <c-s><c-t> /class \(\u\w\+\)( *\u\w\+ *)<cr>
-
-" serach definitions in project
-nmap <c-d> :CtrlPTag<cr>
+" FZF key map
+nmap <c-f> :Files<cr>
+nmap <c-d> :Tags<cr>
+nmap <c-s> :Rg<cr>
 
 nnoremap <space> za
 
