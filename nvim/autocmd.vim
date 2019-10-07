@@ -14,4 +14,4 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 
 autocmd BufWritePost * GitGutter
 
-autocmd BufWritePre * :%s/\s+$//e
+autocmd BufWritePost * :silent! %s/\s\+$\| \+\zs\t//g

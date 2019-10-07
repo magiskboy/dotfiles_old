@@ -86,3 +86,7 @@ autocmd FileType javascript,typescript,jsx setlocal ts=2 sts=2 sw=2
 autocmd FileType html,css,sass,scss,less,jinja,htmldjango setlocal ts=2 sts=2 sw=2
 
 autocmd BufWritePre * :%s/\s+$//e
+
+set listchars=tab:»·,trail:·
+set list
+hi SpecialKey ctermbg=red ctermfg=red guibg=red guifg=red

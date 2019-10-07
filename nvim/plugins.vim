@@ -45,7 +45,8 @@ Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'jiangmiao/auto-pairs'
 
 " File search
-Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Git wrapper
 Plug 'tpope/vim-fugitive'
@@ -55,6 +56,8 @@ Plug 'tpope/vim-eunuch'
 
 " Test vim
 Plug 'janko/vim-test'
+
+Plug 'diepm/vim-rest-console'
 
 Plug 'SkyLeach/pudb.vim'
 

@@ -1,6 +1,5 @@
 nmap <f8> :TagbarToggle<cr>
 nmap <tab> :NERDTreeToggle<cr>
-nmap <c-e> :ALENext<cr>
 inoremap <expr><tab>  pumvisible() ? "\<c-n>" : "\<tab>"
 
 " vim test
@@ -11,8 +10,10 @@ nmap <c-t><c-s> :TestSuite<cr>
 " Search all class definitions
 nmap <c-s><c-t> /class \(\u\w\+\)( *\u\w\+ *)<cr>
 
-" serach definitions in project
-nmap <c-d> :CtrlPTag<cr>
+" FZF key map
+nmap <c-f> :Files<cr>
+nmap <c-s> :Rg<cr>
+nmap <c-d> :Tags<cr>
 
 nnoremap <space> za
 

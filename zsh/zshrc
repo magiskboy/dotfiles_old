@@ -16,6 +16,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+source $HOME/.fzf.zsh
 
 # Don't create __pycache__ folder
 export PYTHONDONTWRITEBYTECODE=1
@@ -23,7 +24,7 @@ export PYTHONDONTWRITEBYTECODE=1
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
-# Allowing for pipenv to use pyenv                                         
+# Allowing for pipenv to use pyenv
 export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
@@ -44,6 +45,9 @@ alias genssl="openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert.k
 alias -s {yml,yaml,js,ts,jsx,html,txt,c,cpp,java,go,md,json,Dockerfile,gitignore,dockerignore,zsh}=nvim
 alias reload="exec \"$SHELL\""
 alias md="mkdir"
+alias rmwp="find . -type f -name '*.py' -exec sed --in-place 's/[[:space:]]\+$//' {} \+"
 
 eval "$(pyenv init -)"
 eval "$(pipenv --completion)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

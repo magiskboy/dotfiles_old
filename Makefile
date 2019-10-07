@@ -1,5 +1,6 @@
 install-base:
-	sudo apt install neovim tree zsh python3 htop ctags python-pip python3-pip python-dev python3-dev
+	sudo apt install neovim tree zsh python3 htop ctags python-pip python3-pip python-dev python3-dev mycli
+	curl http://ftp.us.debian.org/debian/pool/main/r/rust-ripgrep/ripgrep_0.10.0-2_amd64.deb -o /tmp/ripgrep.deb && sudo dpkg -i /tmp/ripgrep.deb
 	pip install --user pynvim
 	pip install --user pynvim
 

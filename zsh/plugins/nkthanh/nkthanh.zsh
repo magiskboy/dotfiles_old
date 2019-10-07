@@ -38,10 +38,10 @@ function bls() {
     local VAR="Permissions|Link|Owner|Group|Size|Modified|Name"
     if [[ -n $1 ]]; then
         cd $1
-        (echo -e "$VAR" && format_ls) | column -s "|" -c 6 -t 
+        (echo -e "$VAR" && format_ls) | column -s "|" -c 6 -t
         cd -
     else
-        (echo -e "$VAR" && format_ls) | column -s "|" -c 6 -t 
+        (echo -e "$VAR" && format_ls) | column -s "|" -c 6 -t
     fi
 }
 
