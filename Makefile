@@ -2,7 +2,6 @@ install-base:
 	sudo apt install neovim tree zsh python3 htop ctags python-pip python3-pip python-dev python3-dev mycli
 	curl http://ftp.us.debian.org/debian/pool/main/r/rust-ripgrep/ripgrep_0.10.0-2_amd64.deb -o /tmp/ripgrep.deb && sudo dpkg -i /tmp/ripgrep.deb
 	pip install --user pynvim
-	pip install --user pynvim
 
 install-nvim:
 	rm -rf ~/.vim
@@ -11,16 +10,8 @@ install-nvim:
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	ln -sf `pwd`/nvim ~/.config/nvim
 
-install-vim:
-	rm -rf ~/.vimrc
-	ln -sf `pwd`/vim/vimrc ~/.vimrc
-
 install-git:
 	ln -sf `pwd`/git/gitconfig ~/.gitconfig
-
-install-bash:
-	rm -rf ~/.bashrc
-	ln -sf `pwd`/bash/bashrc ~/.bashrc
 
 install-tmux:
 	rm -rf ~/.tmux
@@ -34,3 +25,4 @@ install-zsh:
 	rm -rf ~/.oh-my-zsh
 	ln -sf `pwd`/zsh/oh-my-zsh ~/.oh-my-zsh
 	ln -sf `pwd`/zsh/zshrc ~/.zshrc
+	ln -sf `pwd`/zsh/themes/nkthanh ~/.oh-my-zsh/custom/themes/

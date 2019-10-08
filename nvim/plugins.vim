@@ -36,10 +36,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'w0rp/ale'
 
 " Code completion engine
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-
-" Python completer
-Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Auto fill closer chracters
 Plug 'jiangmiao/auto-pairs'
@@ -57,9 +54,13 @@ Plug 'tpope/vim-eunuch'
 " Test vim
 Plug 'janko/vim-test'
 
+Plug 'tpope/vim-commentary'
+
 Plug 'diepm/vim-rest-console'
 
 Plug 'SkyLeach/pudb.vim'
+
+Plug 'wikitopian/hardmode'
 
 call plug#end()
 

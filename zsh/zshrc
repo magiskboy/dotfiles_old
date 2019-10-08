@@ -12,11 +12,10 @@ plugins=(
   docker
   zsh-autosuggestions
   zsh-syntax-highlighting
-  nkthanh
 )
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Don't create __pycache__ folder
 export PYTHONDONTWRITEBYTECODE=1
@@ -40,9 +39,8 @@ export PATH=$JAVA_HOME/bin:$PATH
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# =============== Alias =================
 alias genssl="openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert.key -out cert.crt"
-alias -s {yml,yaml,js,ts,jsx,html,txt,c,cpp,java,go,md,json,Dockerfile,gitignore,dockerignore,zsh}=nvim
+alias -s {yml,yaml,ts,jsx,html,txt,c,cpp,java,go,md,json,Dockerfile,gitignore,dockerignore,zsh}=nvim
 alias reload="exec \"$SHELL\""
 alias md="mkdir"
 alias rmwp="find . -type f -name '*.py' -exec sed --in-place 's/[[:space:]]\+$//' {} \+"
@@ -50,4 +48,12 @@ alias rmwp="find . -type f -name '*.py' -exec sed --in-place 's/[[:space:]]\+$//
 eval "$(pyenv init -)"
 eval "$(pipenv --completion)"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+function get_pyenv_version() {
+    python -V 2>&1 | sed 's/.* \([0-9]\).\([0-9]\)\(.*\)/\1.\2\3/'
+}
+
+function is_background_job() {
+    if [[ ! -z `jobs` ]]; then
+        echo '*'
+    fi
+}
