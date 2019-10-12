@@ -98,7 +98,7 @@ let g:tagbar_iconchars = ['▸', '▾']
 
 " Deoplete
 let g:deoplete#enable_at_startup = 0
-let g:python3_host_prog = expand('/usr/local/bin/python3')
+let g:python3_host_prog = expand('/usr/bin/python3')
 let g:python_host_prog = expand('/usr/bin/python')
 
 " =========== Jedi ===============

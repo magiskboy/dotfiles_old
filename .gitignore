@@ -1,3 +1,2 @@
-.DS_Store
-oh-my-zsh/custom/*
-oh-my-zsh/oh-my-zsh
+tmux/plugins/*
+!tmux/plugins/tpm
