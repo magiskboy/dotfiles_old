@@ -15,24 +15,22 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Don't create __pycache__ folder
 export PYTHONDONTWRITEBYTECODE=1
 
-export TERM=xterm
-
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
-# Allowing for pipenv to use pyenv                                         
+# Allowing for pipenv to use pyenv
 export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Setting java and maven
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export JRE_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre
-export M2_HOME=/usr/local/opt/apache-maven-3.6.1
+export M2_HOME=$HOME/.local/apache-maven-3.6.1
 export M2=$M2_HOME/bin
 export PATH=$M2:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
@@ -41,11 +39,21 @@ export PATH=$JAVA_HOME/bin:$PATH
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# =============== Alias =================
 alias genssl="openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert.key -out cert.crt"
-alias -s {yml,yaml,js,ts,jsx,html,txt,c,cpp,java,go,md,json,Dockerfile,gitignore,dockerignore,zsh}=nvim
+alias -s {yml,yaml,ts,jsx,html,txt,c,cpp,java,go,md,json,Dockerfile,gitignore,dockerignore,zsh}=nvim
 alias reload="exec \"$SHELL\""
 alias md="mkdir"
+alias rmwp="find . -type f -name '*.py' -exec sed -i '' 's/[[:space:]]\{1,\}$//' {} \+"
 
 eval "$(pyenv init -)"
 eval "$(pipenv --completion)"
+
+function get_pyenv_version() {
+    python -V 2>&1 | sed 's/.* \([0-9]\).\([0-9]\)\(.*\)/\1.\2\3/'
+}
+
+function is_background_job() {
+    if [[ ! -z `jobs` ]]; then
+        echo '*'
+    fi
+}

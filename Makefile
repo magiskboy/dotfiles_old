@@ -1,7 +1,7 @@
 install-base:
-	brew install tree zsh python3 pipenv pyenv htop ctags ripgrep
+	brew install tree zsh python3 pipenv pyenv htop ctags ripgrep mycli
 	brew install --HEAD neovim
-	pip install pynvim mycli
+	pip install pynvim
 	sudo gem install terjira
 
 install-nvim:
@@ -17,9 +17,8 @@ install-git:
 install-zsh:
 	rm -rf ~/.zshrc
 	rm -rf ~/.oh-my-zsh
-	ln -sf `pwd`/oh-my-zsh ~/.oh-my-zsh
-	ln -sf `pwd`/zsh-custom/zshrc ~/.zshrc
-	ln -sf `pwd`/zsh-custom/utils.zsh ~/.oh-my-zsh/custom/
-	ln -sf `pwd`/zsh-custom/nkthanh.zsh-theme ~/.oh-my-zsh/custom/themes/
-	ln -sf `pwd`/zsh-custom/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/
-	ln -sf `pwd`/zsh-custom/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/
+	ln -sf `pwd`/zsh/zshrc ~/.zshrc
+	ln -sf `pwd`/zsh/oh-my-zsh ~/.oh-my-zsh
+	ln -sf `pwd`/zsh/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+	ln -sf `pwd`/zsh/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+	ln -sf `pwd`/zsh/themes/nkthanh.zsh-theme ~/.oh-my-zsh/custom/themes
