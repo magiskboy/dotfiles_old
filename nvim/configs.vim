@@ -223,7 +223,7 @@ autocmd BufWritePost * GitGutter
 " Hard mode, disable arrow key
 let g:HardMode_level = 'wannabe'
 let g:HardMode_hardmodeMsg = 'Don''t use this!'
-autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+" autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
 hi ALEWarning cterm=BOLD ctermbg=NONE ctermfg=NONE gui=BOLD guibg=NONE guifg=NONE
 hi GitGutterAdd cterm=BOLD ctermbg=NONE ctermfg=green gui=BOLD guibg=NONE guifg=lightgreen

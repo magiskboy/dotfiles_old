@@ -23,6 +23,8 @@ install-tmux:
 install-zsh:
 	rm -rf ~/.zshrc
 	rm -rf ~/.oh-my-zsh
-	ln -sf `pwd`/zsh/oh-my-zsh ~/.oh-my-zsh
 	ln -sf `pwd`/zsh/zshrc ~/.zshrc
-	ln -sf `pwd`/zsh/themes/nkthanh ~/.oh-my-zsh/custom/themes/
+	ln -sf `pwd`/zsh/oh-my-zsh ~/.oh-my-zsh
+	ln -sf `pwd`/zsh/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+	ln -sf `pwd`/zsh/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+	ln -sf `pwd`/zsh/themes/nkthanh.zsh-theme ~/.oh-my-zsh/custom/themes

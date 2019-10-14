@@ -43,7 +43,7 @@ alias genssl="openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert.k
 alias -s {yml,yaml,ts,jsx,html,txt,c,cpp,java,go,md,json,Dockerfile,gitignore,dockerignore,zsh}=nvim
 alias reload="exec \"$SHELL\""
 alias md="mkdir"
-alias rmwp="find . -type f -name '*.py' -exec sed --in-place 's/[[:space:]]\+$//' {} \+"
+alias rmwp="find . -type f -name '*.py' -exec sed -i '' 's/[[:space:]]\{1,\}$//' {} \+"
 
 eval "$(pyenv init -)"
 eval "$(pipenv --completion)"
