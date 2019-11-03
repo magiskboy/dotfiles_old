@@ -1,5 +1,7 @@
 install-base:
-	brew install tree zsh python3 pipenv pyenv htop ctags ripgrep mycli
+	mkdir ~/.local/bin
+	brew install tree zsh python3 pipenv pyenv htop ctags ripgrep mycli tldr bat task
+	curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -o ~/.local/bin/diff-so-fancy && chmod +x ~/.local/bin/diff-so-fancy
 	brew install --HEAD neovim
 	pip install pynvim
 	sudo gem install terjira
@@ -13,6 +15,10 @@ install-nvim:
 
 install-git:
 	ln -sf `pwd`/git/gitconfig ~/.gitconfig
+
+install-tmux:
+	rm -rf ~/.tmux.conf
+	ln -sf `pwd`/tmux/tmux.conf ~/.tmux.conf
 
 install-zsh:
 	rm -rf ~/.zshrc

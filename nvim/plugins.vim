@@ -28,8 +28,7 @@ Plug 'majutsushi/tagbar'
 
 Plug 'tpope/vim-surround'
 
-" Onedark atom theme
-Plug 'joshdick/onedark.vim'
+Plug 'Rigellute/rigel'
 
 " ================ Utilities ==================
 " Asynchronous syntax checker
@@ -60,7 +59,11 @@ Plug 'diepm/vim-rest-console'
 
 Plug 'SkyLeach/pudb.vim'
 
+Plug 'sbdchd/neoformat'
+
 Plug 'wikitopian/hardmode'
+
+Plug 'heavenshell/vim-pydocstring'
 
 call plug#end()
 

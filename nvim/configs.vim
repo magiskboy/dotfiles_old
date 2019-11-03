@@ -7,7 +7,7 @@ set t_Co=256
 
 syntime on
 
-colorscheme onedark
+colorscheme rigel
 
 " Don't make Vim vi-compatibile.
 set nocompatible
@@ -129,6 +129,9 @@ let g:NERDTreeWinPos = "right"
 " Hide the Nerdtree status line to avoid clutter
 let g:NERDTreeStatusline = ''
 
+" ============ Auto pair ================
+let g:AutoPairsShortcutToggle = ""
+
 " ============= Vim airline ==============
 let g:airline_extensions = ['branch', 'hunks', 'ale']
 
@@ -219,6 +222,7 @@ autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 autocmd BufWritePost * GitGutter
+au BufNewFile *.py 0r ~/workspace/dotfiles/nvim/py.template
 
 " Hard mode, disable arrow key
 let g:HardMode_level = 'wannabe'
@@ -234,3 +238,5 @@ hi ALEWarningSign cterm=BOLD ctermbg=NONE ctermfg=white gui=BOLD guibg=NONE guif
 hi EndOfBuffer cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=bg
 hi VertSplit cterm=NONE ctermbg=NONE ctermfg=234 gui=NONE guibg=NONE guifg=grey
 hi LineNr cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=NONE
+" hi ColorColumn cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=DarkSlateGray guifg=NONE
+" hi CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=DarkSlateGray guifg=NONE
