@@ -54,6 +54,7 @@ alias -s {yml,yaml,ts,jsx,html,txt,c,cpp,java,go,md,json,Dockerfile,gitignore,do
 alias reload="exec \"$SHELL\""
 alias md="mkdir"
 alias rmwp="find . -type f -name '*.py' -exec sed -i '' 's/[[:space:]]\{1,\}$//' {} \+"
+alias f="fzf --preview=\"bat {} --color=always\""
 
 eval "$(pyenv init -)"
 eval "$(pipenv --completion)"
