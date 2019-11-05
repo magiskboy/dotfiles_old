@@ -6,6 +6,8 @@ install-base:
 	pip install --user pynvim
 
 install-nvim:
+	rm -rf ~/.vimrc
+	ln -sf `pwd`/nvim/vimrc ~/.vimrc
 	rm -rf ~/.vim
 	rm -rf ~/.config/nvim
 	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
