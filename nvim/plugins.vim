@@ -28,8 +28,7 @@ Plug 'majutsushi/tagbar'
 
 Plug 'tpope/vim-surround'
 
-" Onedark atom theme
-Plug 'joshdick/onedark.vim'
+Plug 'crusoexia/vim-monokai'
 
 " ================ Utilities ==================
 " Asynchronous syntax checker
@@ -55,6 +54,8 @@ Plug 'tpope/vim-eunuch'
 Plug 'janko/vim-test'
 
 Plug 'tpope/vim-commentary'
+
+Plug 'sbdchd/neoformat'
 
 Plug 'diepm/vim-rest-console'
 

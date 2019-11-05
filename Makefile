@@ -1,6 +1,8 @@
 install-base:
-	sudo apt install neovim tree zsh python3 htop ctags python-pip python3-pip python-dev python3-dev mycli
+	sudo apt install neovim tree zsh python3 htop ctags python-pip python3-pip python-dev python3-dev mycli bat tldr
 	curl http://ftp.us.debian.org/debian/pool/main/r/rust-ripgrep/ripgrep_0.10.0-2_amd64.deb -o /tmp/ripgrep.deb && sudo dpkg -i /tmp/ripgrep.deb
+	curl https://github.com/sharkdp/bat/releases/download/v0.11.0/bat_0.11.0_amd64.deb -o /tmp/bat.deb && sudo dpkg -i /tmp/bat.deb
+	curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -o ~/.local/bin/diff-so-fancy && chmod +x ~/.local/bin/diff-so-fancy
 	pip install --user pynvim
 
 install-nvim:

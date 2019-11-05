@@ -7,7 +7,7 @@ set t_Co=256
 
 syntime on
 
-colorscheme onedark
+colorscheme monokai
 
 " Don't make Vim vi-compatibile.
 set nocompatible
@@ -234,3 +234,5 @@ hi ALEWarningSign cterm=BOLD ctermbg=NONE ctermfg=white gui=BOLD guibg=NONE guif
 hi EndOfBuffer cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=bg
 hi VertSplit cterm=NONE ctermbg=NONE ctermfg=234 gui=NONE guibg=NONE guifg=grey
 hi LineNr cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=NONE
+hi CursorLine gui=BOLD guibg=DarkSlateGray
+hi ColorColumn guibg=DarkSlateGray
