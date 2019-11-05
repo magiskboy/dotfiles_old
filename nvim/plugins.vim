@@ -30,6 +30,8 @@ Plug 'tpope/vim-surround'
 
 Plug 'crusoexia/vim-monokai'
 
+Plug 'Rigellute/rigel'
+
 " ================ Utilities ==================
 " Asynchronous syntax checker
 Plug 'w0rp/ale'
