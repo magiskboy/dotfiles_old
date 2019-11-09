@@ -17,7 +17,7 @@ nmap <leader>ggl :diffget //2<cr>
 nmap <leader>ggr :diffget //3<cr>
 
 " Search files
-nmap <leader>p :Files<cr>
+nmap <leader>p :call FZF_Wrapper()<cr>
 " Search file content with regex
 nmap <leader>r :Rg<cr>
 " Search function, class, variable follow tag

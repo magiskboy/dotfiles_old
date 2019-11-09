@@ -104,7 +104,7 @@ set guioptions+=c
 set diffopt+=vertical
 
 let g:python3_host_prog = expand('/Users/nkthanh/.pyenv/shims/python')
-let g:python_host_prog = expand('/Users/nkthanh/.pyenv/shims/python2')
+let g:python_host_prog = expand('/Users/nkthanh/.pyenv/shims/python')
 
 " ============= Ident line ==============
 " Set indent line guide character
@@ -229,6 +229,28 @@ let g:HardMode_level = 'wannabe'
 let g:HardMode_hardmodeMsg = 'Don''t use this!'
 " autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
+if executable('rg')
+    let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+    set grepprg=rg\ --vimgrep
+    command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
+function FZF_Wrapper()
+    function! s:edit_file(item)
+        let l:pos = stridx(a:item, ' ')
+        let l:file_path = a:item[pos+1:-1]
+        execute 'silent e' l:file_path
+    endfunction
+    function! s:files()
+        let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
+        return l:files
+    endfunction
+    call fzf#run({
+        \'source': <sid>files(),
+        \ 'sink': function('s:edit_file'),
+        \ 'options': '-m --preview "bat {} --color=always --theme=\"Monokai Extended Origin\""',
+        \ 'down': '60%' })
+endfunction
+
 hi ALEWarning cterm=BOLD ctermbg=NONE ctermfg=NONE gui=BOLD guibg=NONE guifg=NONE
 hi GitGutterAdd cterm=BOLD ctermbg=NONE ctermfg=green gui=BOLD guibg=NONE guifg=lightgreen
 hi GitGutterDelete cterm=BOLD ctermbg=NONE ctermfg=red gui=BOLD guibg=NONE guifg=red
@@ -238,5 +260,3 @@ hi ALEWarningSign cterm=BOLD ctermbg=NONE ctermfg=white gui=BOLD guibg=NONE guif
 hi EndOfBuffer cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=bg
 hi VertSplit cterm=NONE ctermbg=NONE ctermfg=234 gui=NONE guibg=NONE guifg=grey
 hi LineNr cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=NONE
-" hi ColorColumn cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=DarkSlateGray guifg=NONE
-" hi CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=DarkSlateGray guifg=NONE
