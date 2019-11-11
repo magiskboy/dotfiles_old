@@ -13,6 +13,10 @@ install-nvim:
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	ln -sf `pwd`/nvim ~/.config/nvim
 
+install-mycli:
+	rm -rf ~/.myvlirc
+	ln -sf `pwd`/myclirc ~/.myclirc
+
 install-git:
 	ln -sf `pwd`/git/gitconfig ~/.gitconfig
 
