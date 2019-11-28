@@ -103,8 +103,8 @@ set guioptions+=c
 
 set diffopt+=vertical
 
-let g:python3_host_prog = expand('/Users/nkthanh/.pyenv/shims/python')
-let g:python_host_prog = expand('/Users/nkthanh/.pyenv/shims/python')
+let g:python3_host_prog = expand('/usr/bin/python3')
+let g:python_host_prog = expand('/usr/bin/python')
 
 " ============= Ident line ==============
 " Set indent line guide character

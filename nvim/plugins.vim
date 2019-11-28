@@ -55,13 +55,7 @@ Plug 'janko/vim-test'
 
 Plug 'tpope/vim-commentary'
 
-Plug 'diepm/vim-rest-console'
-
-Plug 'SkyLeach/pudb.vim'
-
 Plug 'sbdchd/neoformat'
-
-Plug 'wikitopian/hardmode'
 
 Plug 'heavenshell/vim-pydocstring'
 

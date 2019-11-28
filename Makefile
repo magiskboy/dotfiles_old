@@ -1,9 +1,10 @@
 install-base:
 	mkdir ~/.local/bin
-	brew install tree zsh python3 pipenv pyenv htop ctags ripgrep mycli tldr bat task
+	brew install tree zsh python3 htop ctags ripgrep mycli pgcli tldr bat
 	curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -o ~/.local/bin/diff-so-fancy && chmod +x ~/.local/bin/diff-so-fancy
 	brew install --HEAD neovim
-	pip install pynvim
+	python -m pip install --user pynvim
+	python3 -m pip install --user pynvim pipenv pgcli mycli
 	sudo gem install terjira
 
 install-nvim:
@@ -13,9 +14,12 @@ install-nvim:
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	ln -sf `pwd`/nvim ~/.config/nvim
 
-install-mycli:
+install-dbcli:
 	rm -rf ~/.myvlirc
-	ln -sf `pwd`/myclirc ~/.myclirc
+	rm -rf ~/.config/pgcli
+	ln -sf `pwd`/dbcli/myclirc ~/.myclirc
+	mkdir -p ~/.config/pgcli
+	ln -sf `pwd`/dbcli/pgclirc ~/.config/pgcli/config
 
 install-git:
 	ln -sf `pwd`/git/gitconfig ~/.gitconfig

@@ -50,17 +50,32 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 alias genssl="openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert.key -out cert.crt"
+alias macaddr="openssl rand -hex 6 | sed 's/\(..\)/\1:/g;s/.$//'"
 alias -s {yml,yaml,ts,jsx,html,txt,c,cpp,java,go,md,json,Dockerfile,gitignore,dockerignore,zsh}=nvim
 alias reload="exec \"$SHELL\""
 alias md="mkdir"
 alias rmwp="find . -type f -name '*.py' -exec sed -i '' 's/[[:space:]]\{1,\}$//' {} \+"
 alias f="fzf --preview=\"bat {} --color=always\""
 
-eval "$(pyenv init -)"
-eval "$(pipenv --completion)"
 
 function is_background_job() {
     if [[ ! -z `jobs` ]]; then
         echo '*'
     fi
 }
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/nkthanh/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/nkthanh/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/nkthanh/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/nkthanh/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
