@@ -222,12 +222,9 @@ autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 autocmd BufWritePost * GitGutter
-au BufNewFile *.py 0r ~/workspace/dotfiles/nvim/py.template
 
-" Hard mode, disable arrow key
-let g:HardMode_level = 'wannabe'
-let g:HardMode_hardmodeMsg = 'Don''t use this!'
-" autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+let g:tmpl_search_paths = ['~/workspace/dotfiles/nvim/templates']
+let g:tmpl_author_email = 'nguyenkhacthanh244@gmail.com'
 
 if executable('rg')
     let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'

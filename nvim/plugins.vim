@@ -57,6 +57,8 @@ Plug 'tpope/vim-commentary'
 
 Plug 'sbdchd/neoformat'
 
+Plug 'tibabit/vim-templates'
+
 Plug 'heavenshell/vim-pydocstring'
 
 call plug#end()
