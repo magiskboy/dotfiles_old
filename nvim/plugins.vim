@@ -61,6 +61,8 @@ Plug 'tibabit/vim-templates'
 
 Plug 'heavenshell/vim-pydocstring'
 
+Plug 'sillybun/vim-repl'
+
 call plug#end()
 
 filetype on
