@@ -26,7 +26,7 @@ _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' with %{$fg[cyan]%}`python -V`%{$reset_colo
 # This is the base prompt that is rendered sync.  It should be
 # fast to render as a result.  The extra whitespace before the
 # newline is necessary to avoid some rendering bugs.
-PROMPT=$_MITSUHIKO_PROMPT$'\n$ '
+PROMPT=$_MITSUHIKO_PROMPT$'$ '
 RPROMPT='`is_background_job`'
 
 # The pid of the async prompt process and the communication file

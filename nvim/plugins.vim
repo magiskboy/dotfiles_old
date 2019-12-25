@@ -8,9 +8,6 @@ call plug#begin('~/.vim/bundle')
 " File explore
 Plug 'scrooloose/nerdtree'
 
-" Solid pack language syntax highlight
-Plug 'sheerun/vim-polyglot'
-
 " Show changed git status in sign column
 Plug 'airblade/vim-gitgutter'
 
@@ -37,6 +34,11 @@ Plug 'w0rp/ale'
 " Code completion engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+
+" Solid pack language syntax highlight
+Plug 'sheerun/vim-polyglot'
+
 " Auto fill closer chracters
 Plug 'jiangmiao/auto-pairs'
 
@@ -60,8 +62,6 @@ Plug 'sbdchd/neoformat'
 Plug 'tibabit/vim-templates'
 
 Plug 'heavenshell/vim-pydocstring'
-
-Plug 'sillybun/vim-repl'
 
 call plug#end()
 
