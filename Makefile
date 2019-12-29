@@ -3,9 +3,13 @@ install-base:
 	brew install tree zsh python3 htop ctags ripgrep mycli pgcli tldr bat
 	curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -o ~/.local/bin/diff-so-fancy && chmod +x ~/.local/bin/diff-so-fancy
 	brew install --HEAD neovim
-	python -m pip install --user pynvim
-	python3 -m pip install --user pynvim pipenv pgcli mycli
-	sudo gem install terjira
+	python -m pip install --user pynvim psutil
+	python3 -m pip install --user pynvim pipenv pgcli mycli psutil
+	sudo gem install terjira travis
+
+
+install-utils:
+	ln -sf `pwd`/scripts/utility.py ~/.local/bin/utility
 
 install-nvim:
 	rm -rf ~/.vim

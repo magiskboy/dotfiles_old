@@ -16,11 +16,11 @@ ZSH_THEME_VIRTUALENV_SUFFIX="%{$reset_color%}"
 
 # This is the basic prompt that is always printed.  It will be
 # enclosed to make it newline.
-_MITSUHIKO_PROMPT='%{$fg_bold[yellow]%}%T%{$reset_color%} - '
+# _MITSUHIKO_PROMPT='%{$fg_bold[yellow]%}%T%{$reset_color%} - '
 _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT'%{$fg_bold[magenta]%}%n%{$reset_color%}'
 _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' at %{$fg_bold[yellow]%}% `hostname -s`%{$reset_color%}'
 _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' in %{$fg_bold[green]%}% %(7~|.../%6~|%~)%{$reset_color%}'
-_MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' with %{$fg[cyan]%}`python -V`%{$reset_color%}'
+# _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' with %{$fg[cyan]%}`python -V`%{$reset_color%}'
 
 
 # This is the base prompt that is rendered sync.  It should be

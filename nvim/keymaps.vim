@@ -33,14 +33,6 @@ nnoremap <c-j> <c-w><c-j>
 nnoremap <c-k> <c-w><c-k>
 nnoremap <c-l> <c-w><c-l>
 
-nmap <F2> :CocCommand document.renameCurrentWord
-
-augroup filetype_python
-    autocmd!
-    autocmd FileType python iabbrev iff if:<left>
-    autocmd FileType python iabbrev fof for i in range():<left><left>
-    autocmd FileType python iabbrev whf while:<left>
-    autocmd FileType python iabbrev imp import
-augroup END
+nmap <F2> :CocCommand document.renameCurrentWord<cr>
 
 inoremap <expr><tab>  pumvisible() ? "\<c-n>" : "\<tab>"
