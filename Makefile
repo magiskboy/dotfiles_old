@@ -17,6 +17,10 @@ install-nvim:
 install-git:
 	ln -sf `pwd`/git/gitconfig ~/.gitconfig
 
+install-mycli:
+	rm -rf ~/.myclirc
+	ln -sf `pwd`/myclirc ~/.myclirc
+
 install-tmux:
 	rm -rf ~/.tmux
 	rm -f ~/.tmux.conf

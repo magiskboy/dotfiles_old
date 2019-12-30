@@ -65,6 +65,8 @@ Plug 'SkyLeach/pudb.vim'
 
 Plug 'wikitopian/hardmode'
 
+Plug 'heavenshell/vim-pydocstring'
+
 call plug#end()
 
 filetype on
