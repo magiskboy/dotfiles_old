@@ -129,6 +129,9 @@ let g:NERDTreeWinPos = "right"
 " Hide the Nerdtree status line to avoid clutter
 let g:NERDTreeStatusline = ''
 
+" ============= Auto pair shortcut toggle ===========
+let g:AutoPairsShortcutToggle = ""
+
 " ============= Vim airline ==============
 let g:airline_extensions = ['branch', 'hunks', 'ale']
 
@@ -224,6 +227,9 @@ autocmd BufWritePost * GitGutter
 let g:HardMode_level = 'wannabe'
 let g:HardMode_hardmodeMsg = 'Don''t use this!'
 " autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+"
+let g:tmpl_search_paths = ['~/workspace/dotfiles/nvim/templates']
+let g:tmpl_author_email = 'nguyenkhacthanh244@gmail.com'
 
 
 if executable('rg')

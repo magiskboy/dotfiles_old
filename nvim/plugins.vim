@@ -8,9 +8,6 @@ call plug#begin('~/.vim/bundle')
 " File explore
 Plug 'scrooloose/nerdtree'
 
-" Solid pack language syntax highlight
-Plug 'sheerun/vim-polyglot'
-
 " Show changed git status in sign column
 Plug 'airblade/vim-gitgutter'
 
@@ -30,14 +27,17 @@ Plug 'tpope/vim-surround'
 
 Plug 'crusoexia/vim-monokai'
 
-Plug 'Rigellute/rigel'
-
 " ================ Utilities ==================
 " Asynchronous syntax checker
 Plug 'w0rp/ale'
 
 " Code completion engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
+
+" Solid pack language syntax highlight
+Plug 'sheerun/vim-polyglot'
 
 " Auto fill closer chracters
 Plug 'jiangmiao/auto-pairs'
@@ -59,13 +59,9 @@ Plug 'tpope/vim-commentary'
 
 Plug 'sbdchd/neoformat'
 
-Plug 'diepm/vim-rest-console'
-
-Plug 'SkyLeach/pudb.vim'
-
-Plug 'wikitopian/hardmode'
-
 Plug 'heavenshell/vim-pydocstring'
+
+Plug 'tibabit/vim-templates'
 
 call plug#end()
 

@@ -5,6 +5,9 @@ install-base:
 	curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -o ~/.local/bin/diff-so-fancy && chmod +x ~/.local/bin/diff-so-fancy
 	pip install --user pynvim
 
+install-utils:
+	ln -sf `pwd`/scripts/utility.py ~/.local/bin/utility
+
 install-nvim:
 	rm -rf ~/.vimrc
 	ln -sf `pwd`/nvim/vimrc ~/.vimrc
@@ -22,11 +25,8 @@ install-mycli:
 	ln -sf `pwd`/myclirc ~/.myclirc
 
 install-tmux:
-	rm -rf ~/.tmux
 	rm -f ~/.tmux.conf
-	ln -sf `pwd`/tmux ~/.tmux
-	ln -sf `pwd`/tmux/config/.tmux.conf ~/.tmux.conf
-	ln -sf `pwd`/tmux/config/.tmux.conf.local ~/.tmux.conf.local
+	ln -sf `pwd`/tmux/tmux.conf ~/.tmux.conf
 
 install-zsh:
 	rm -rf ~/.zshrc
