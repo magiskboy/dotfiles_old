@@ -1,4 +1,4 @@
-# Created by Armin Ronacher github@misuhiko
+# Created by Armin Ronacher github@mitsuhiko
 setopt prompt_subst
 #export LS_COLORS=ExGxFxDxCxHxHxCbCeEbEb
 
@@ -26,7 +26,7 @@ _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' with py %{$fg[cyan]%}`get_pyenv_version`%{
 # This is the base prompt that is rendered sync.  It should be
 # fast to render as a result.  The extra whitespace before the
 # newline is necessary to avoid some rendering bugs.
-PROMPT=$_MITSUHIKO_PROMPT$'\n$ '
+PROMPT=$_MITSUHIKO_PROMPT$'\n '
 RPROMPT='`is_background_job`'
 
 # The pid of the async prompt process and the communication file
@@ -54,7 +54,7 @@ function _mitsuhiko_precmd() {
     if [[ x$_mitsuhiko_rv != x0 ]]; then
       echo -n " exited %{$fg[red]%}$_mitsuhiko_rv%{$reset_color%}" >> $_MITSUHIKO_ASYNC_PROMPT_FN
     fi
-    echo -n $' \n$ ' >> $_MITSUHIKO_ASYNC_PROMPT_FN
+    echo -n $' \n🐶 ' >> $_MITSUHIKO_ASYNC_PROMPT_FN
 
     # signal parent
     kill -s USR1 $$
