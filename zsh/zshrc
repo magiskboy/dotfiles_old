@@ -5,17 +5,11 @@ ZSH_THEME="nkthanh"
 plugins=(
   git
   git-prompt
-  git-auto-fetch
   gitignore
-  pipenv
-  pyenv
-  django
   virtualenv
   docker
   vi-mode
   jsontools
-  transfer
-  timer
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
@@ -24,13 +18,13 @@ source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Don't create __pycache__ folder
-export PYTHONDONTWRITEBYTECODE=1
-export PATH="$HOME/.local/bin:$PATH"
 # export PYENV_ROOT="$HOME/.pyenv"
 # export PATH="$PYENV_ROOT/bin:$PATH"
 # Allowing for pipenv to use pyenv
 # export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
-# export VIRTUAL_ENV_DISABLE_PROMPT=1
+export PYTHONDONTWRITEBYTECODE=1
+export PYENV_EXTENSION=-env
+export PATH="$HOME/.local/bin:$PATH"
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export JRE_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre
 export M2_HOME=$HOME/.local/apache-maven-3.6.1
@@ -42,6 +36,12 @@ export GOBIN=$GOPATH/bin
 export PATH=$GOBIN:$PATH
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+if [[ -z $TMUX ]]; then
+    export TERM=xterm-256color
+else
+    export TERM=screen-256color
+fi
+export TERMINFO=/usr/share/terminfo
 
 alias genssl="openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert.key -out cert.crt"
 alias macaddr="openssl rand -hex 6 | sed 's/\(..\)/\1:/g;s/.$//'"
@@ -50,37 +50,22 @@ alias reload="exec \"$SHELL\""
 alias md="mkdir"
 alias rmwp="find . -type f -name '*.py' -exec sed -i '' 's/[[:space:]]\{1,\}$//' {} \+"
 alias f="fzf --preview=\"bat {} --color=always\""
-alias .="source"
 alias gg="cd ~/workspace/go/src/github.com/nkthanh98"
 
 
-function is_background_job() {
-    if [[ ! -z `jobs` ]]; then
-        echo '*'
-    fi
+function get_bg_job() {
+    job=$(jobs -l | tail -n 1 | sed "s/\(.*\)  \(.*\)/\2/g")
+    [[ ! -z $job ]] && echo $job
 }
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/nkthanh/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/nkthanh/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/nkthanh/opt/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/nkthanh/opt/anaconda3/bin:$PATH"
+function cd() {
+    if [[ ! -z $VIRTUAL_ENV ]]; then
+        deactivate 2> /dev/null
     fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-
-# added by travis gem
-[ -f /Users/nkthanh/.travis/travis.sh ] && source /Users/nkthanh/.travis/travis.sh
-
-export TERM=xterm-256color
-export TERMINFO=/usr/share/terminfo
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
+    builtin cd "$@"
+    # auto detect and interactive virtualenv
+    local FILE
+    for FILE in `find . -maxdepth 1 -type d -name "*$PYENV_EXTENSION"`; do
+        [ -f $FILE\/bin\/activate ] && source $FILE\/bin\/activate && return
+    done
+}

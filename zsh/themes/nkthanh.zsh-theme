@@ -27,7 +27,7 @@ _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' in %{$fg_bold[green]%}% %(7~|.../%6~|%~)%{
 # fast to render as a result.  The extra whitespace before the
 # newline is necessary to avoid some rendering bugs.
 PROMPT=$_MITSUHIKO_PROMPT$'$ '
-RPROMPT='`is_background_job`'
+RPROMPT='%{$fg_bold[red]%}$(get_bg_job)'
 
 # The pid of the async prompt process and the communication file
 _MITSUHIKO_ASYNC_PROMPT=1
