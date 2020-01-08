@@ -4,6 +4,7 @@ install-base:
 	curl https://github.com/sharkdp/bat/releases/download/v0.11.0/bat_0.11.0_amd64.deb -o /tmp/bat.deb && sudo dpkg -i /tmp/bat.deb
 	curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -o ~/.local/bin/diff-so-fancy && chmod +x ~/.local/bin/diff-so-fancy
 	pip install --user pynvim
+	git clone https://github.com/relastle/pmy-config ~/.pmy
 
 install-utils:
 	ln -sf `pwd`/scripts/utility.py ~/.local/bin/utility

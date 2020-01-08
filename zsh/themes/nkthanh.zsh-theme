@@ -18,16 +18,16 @@ ZSH_THEME_VIRTUALENV_SUFFIX="%{$reset_color%}"
 # enclosed to make it newline.
 # _MITSUHIKO_PROMPT='%{$fg_bold[yellow]%}%T%{$reset_color%} - '
 _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT'%{$fg_bold[magenta]%}%n%{$reset_color%}'
-_MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' at %{$fg_bold[yellow]%}% `hostname -s`%{$reset_color%}'
+_MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' at %{$fg_bold[yellow]%}% $(hostname -s)%{$reset_color%}'
 _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' in %{$fg_bold[green]%}% %(7~|.../%6~|%~)%{$reset_color%}'
-_MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' with py %{$fg[cyan]%}`get_pyenv_version`%{$reset_color%}'
+_MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' with py %{$fg[cyan]%}$(get_py_version)%{$reset_color%}'
 
 
 # This is the base prompt that is rendered sync.  It should be
 # fast to render as a result.  The extra whitespace before the
 # newline is necessary to avoid some rendering bugs.
 PROMPT=$_MITSUHIKO_PROMPT$'\n '
-RPROMPT='`is_background_job`'
+RPROMPT='$(background_job)'
 
 # The pid of the async prompt process and the communication file
 _MITSUHIKO_ASYNC_PROMPT=1

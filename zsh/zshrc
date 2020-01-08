@@ -17,20 +17,16 @@ plugins=(
   vi-mode
   jsontools
   transfer
-  timer
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
+source $HOME/workspace/dotfiles/scripts/timer.plugin.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PYTHONDONTWRITEBYTECODE=1
 export PATH=$HOME/anaconda3/bin:$PATH
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
-# export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
-# export VIRTUAL_ENV_DISABLE_PROMPT=1
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export JRE_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre
 export M2_HOME=$HOME/.local/apache-maven-3.6.1
@@ -46,26 +42,35 @@ export TERMINFO=/usr/share/terminfo
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PYENV_EXTENSION="-env"
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
+# export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 alias genssl="openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert.key -out cert.crt"
 alias -s {yml,yaml,ts,jsx,html,txt,c,cpp,java,go,md,json,Dockerfile,gitignore,dockerignore,zsh}=nvim
 alias reload="exec \"$SHELL\""
 alias md="mkdir"
 alias rmwp="find . -type f -name '*.py' -exec sed -i '' 's/[[:space:]]\{1,\}$//' {} \+"
-alias f="fzf --preview=\"bat {} --color=always\""
+alias f="fzf --preview=\"bat {} --color=always --theme=\"Monokai Extended Origin\"\""
 alias gg="cd ~/workspace/go/src/github.com/nkthanh98"
+alias gh="git rev-parse --short HEAD"
 
 # eval "$(pyenv init -)"
 # eval "$(pipenv --completion)"
 
-function get_pyenv_version() {
+function get_py_version() {
     python -V 2>&1 | sed 's/.* \([0-9]\).\([0-9]\)\(.*\)/\1.\2\3/'
 }
 
-function is_background_job() {
-    if [[ ! -z `jobs` ]]; then
-        echo '*'
-    fi
+function background_job() {
+    bg_job=$(jobs | tail -n 1 | sed 's/.*  \(.*\)/\1/')
+    [ ! -z $bg_job ] && echo $bg_job
+}
+
+
+function lmao() {
+    rg -l $1 | fzf --preview "bat {} --color=always" --bind "enter:execute(nvim {})"
 }
 
 function cd() {
@@ -75,7 +80,7 @@ function cd() {
     builtin cd "$@"
     # auto detect and interactive virtualenv
     local FILE
-    for FILE in `find . -maxdepth 1 -type d -name "*$PYENV_EXTENSION"`; do
+    for FILE in $(find . -maxdepth 1 -type d -name "*$PYENV_EXTENSION"); do
         [ -f $FILE\/bin\/activate ] && source $FILE\/bin\/activate && return
     done
 }
