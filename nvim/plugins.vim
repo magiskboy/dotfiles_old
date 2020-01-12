@@ -11,6 +11,8 @@ Plug 'scrooloose/nerdtree'
 " Show changed git status in sign column
 Plug 'airblade/vim-gitgutter'
 
+Plug 'arzg/vim-colors-xcode'
+
 " Indent guild line
 Plug 'Yggdroot/indentLine'
 
@@ -24,8 +26,6 @@ Plug 'ap/vim-css-color'
 Plug 'majutsushi/tagbar'
 
 Plug 'tpope/vim-surround'
-
-Plug 'Rigellute/rigel'
 
 " ================ Utilities ==================
 " Asynchronous syntax checker

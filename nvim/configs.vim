@@ -7,7 +7,7 @@ set t_Co=256
 
 syntime on
 
-colorscheme rigel
+colorscheme xcodedark
 
 " Don't make Vim vi-compatibile.
 set nocompatible
@@ -27,7 +27,7 @@ set autoindent
 set clipboard=unnamed
 
 " Highlight certain column(s).
-set colorcolumn=80
+set colorcolumn=79
 
 set signcolumn=yes
 
@@ -77,7 +77,7 @@ set undofile noswapfile nobackup
 set undodir=/tmp
 
 " Allow cursor to be anywhere.
-set virtualedit=all
+" set virtualedit=all
 
 " Disable beeping and window flashing
 set novisualbell
@@ -188,17 +188,9 @@ let g:ale_set_highlights = 0
 " Setting ale window
 let g:ale_open_list = 0
 
-" ============= One dark theme ==============
-" Hidden end of buffer `~`
-let g:onedark_hide_endofbuffer = 1
-
-" Simulator italic font
-let g:onedark_terminal_italics = 1
-
 " ============= Tagbar ===============
 " Set dropdown for tagbar
 let g:tagbar_iconchars = ['▸', '▾']
-
 
 " ========== vim-test ============
 let test#strategy = {
@@ -244,7 +236,7 @@ function FZF_Wrapper()
     call fzf#run({
         \'source': <sid>files(),
         \ 'sink': function('s:edit_file'),
-        \ 'options': '-m --preview "bat {} --color=always --theme=\"Monokai Extended Origin\""',
+        \ 'options': '-m --preview "bat {} --color=always --theme=base16"',
         \ 'down': '60%' })
 endfunction
 
@@ -257,3 +249,5 @@ hi ALEWarningSign cterm=BOLD ctermbg=NONE ctermfg=white gui=BOLD guibg=NONE guif
 hi EndOfBuffer cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=bg
 hi VertSplit cterm=NONE ctermbg=NONE ctermfg=234 gui=NONE guibg=NONE guifg=grey
 hi LineNr cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=NONE
+hi MyGroup gui=bold
+match MyGroup /./

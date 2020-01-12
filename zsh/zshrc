@@ -4,8 +4,8 @@ ZSH_THEME="nkthanh"
 
 plugins=(
   git
+  gitfast
   git-prompt
-  gitignore
   virtualenv
   docker
   vi-mode
@@ -15,42 +15,32 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
-# Don't create __pycache__ folder
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
-# Allowing for pipenv to use pyenv
-# export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
 export PYTHONDONTWRITEBYTECODE=1
 export PYENV_EXTENSION=-env
 export PATH="$HOME/.local/bin:$PATH"
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-export JRE_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre
-export M2_HOME=$HOME/.local/apache-maven-3.6.1
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home
+export M2_HOME=$HOME/.local/apache-maven-3.6.3
 export M2=$M2_HOME/bin
 export PATH=$M2:$PATH
-export PATH=$JAVA_HOME/bin:$PATH
 export GOPATH=$HOME/workspace/go
 export GOBIN=$GOPATH/bin
 export PATH=$GOBIN:$PATH
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-if [[ -z $TMUX ]]; then
-    export TERM=xterm-256color
-else
-    export TERM=screen-256color
-fi
+export TERM=xterm-256color
 export TERMINFO=/usr/share/terminfo
 
 alias genssl="openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert.key -out cert.crt"
-alias macaddr="openssl rand -hex 6 | sed 's/\(..\)/\1:/g;s/.$//'"
-alias -s {yml,yaml,ts,jsx,html,txt,c,cpp,java,go,md,json,Dockerfile,gitignore,dockerignore,zsh}=nvim
+alias genmacaddr="openssl rand -hex 6 | sed 's/\(..\)/\1:/g;s/.$//'"
+alias -s {yml,yaml,jsx,html,txt,c,cpp,java,go,md,json,Dockerfile,gitignore,dockerignore}=nvim
 alias reload="exec \"$SHELL\""
 alias md="mkdir"
 alias rmwp="find . -type f -name '*.py' -exec sed -i '' 's/[[:space:]]\{1,\}$//' {} \+"
 alias f="fzf --preview=\"bat {} --color=always\""
 alias gg="cd ~/workspace/go/src/github.com/nkthanh98"
+alias cl="clear"
 
 
 function get_bg_job() {
@@ -58,12 +48,13 @@ function get_bg_job() {
     [[ ! -z $job ]] && echo $job
 }
 
+function gi () {
+    curl -fL https://www.gitignore.io/api/${(j:,:)@}
+}
+
 function cd() {
-    if [[ ! -z $VIRTUAL_ENV ]]; then
-        deactivate 2> /dev/null
-    fi
+    [[ ! -z $VIRTUAL_ENV ]] && deactivate 2> /dev/null
     builtin cd "$@"
-    # auto detect and interactive virtualenv
     local FILE
     for FILE in `find . -maxdepth 1 -type d -name "*$PYENV_EXTENSION"`; do
         [ -f $FILE\/bin\/activate ] && source $FILE\/bin\/activate && return
