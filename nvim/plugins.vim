@@ -11,7 +11,7 @@ Plug 'scrooloose/nerdtree'
 " Show changed git status in sign column
 Plug 'airblade/vim-gitgutter'
 
-Plug 'arzg/vim-colors-xcode'
+Plug 'lifepillar/vim-solarized8'
 
 " Indent guild line
 Plug 'Yggdroot/indentLine'

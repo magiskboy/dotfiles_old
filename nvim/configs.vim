@@ -7,7 +7,7 @@ set t_Co=256
 
 syntime on
 
-colorscheme xcodedark
+colorscheme solarized8
 
 " Don't make Vim vi-compatibile.
 set nocompatible
@@ -249,5 +249,8 @@ hi ALEWarningSign cterm=BOLD ctermbg=NONE ctermfg=white gui=BOLD guibg=NONE guif
 hi EndOfBuffer cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=bg
 hi VertSplit cterm=NONE ctermbg=NONE ctermfg=234 gui=NONE guibg=NONE guifg=grey
 hi LineNr cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=NONE
+hi Visual ctermbg=242 guifg=#F14B20 guibg=#BEBEAB
+hi Search ctermbg=242 guifg=#F14B20 guibg=#BEBEAB
+hi IncSearch ctermbg=242 guifg=#F14B20 guibg=#BEBEAB
 hi MyGroup gui=bold
 match MyGroup /./
