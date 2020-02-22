@@ -6,9 +6,7 @@ plugins=(
   git
   git-prompt
   virtualenv
-  docker
   vi-mode
-  jsontools
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
@@ -28,8 +26,6 @@ export GOBIN=$GOPATH/bin
 export PATH=$GOBIN:$PATH
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-export TERM=xterm-256color
-export TERMINFO=/usr/share/terminfo
 export PATH=~/opt/anaconda3/bin:$PATH
 
 alias genssl="openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert.key -out cert.crt"

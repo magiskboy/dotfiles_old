@@ -21,7 +21,7 @@ ZSH_THEME_VIRTUALENV_SUFFIX="%{$reset_color%}"
 _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT'%{$fg_bold[magenta]%}%n%{$reset_color%}'
 _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' at %{$fg_bold[yellow]%}% `hostname -s`%{$reset_color%}'
 _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' in %{$fg_bold[green]%}% %(7~|.../%6~|%~)%{$reset_color%}'
-# _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' with %{$fg[cyan]%}`python -V`%{$reset_color%}'
+_MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' with %{$fg[cyan]%}`python -V`%{$reset_color%}'
 
 
 # This is the base prompt that is rendered sync.  It should be
@@ -51,11 +51,11 @@ function _mitsuhiko_precmd() {
     precmd_update_git_vars
 
     #
-    echo -n $'\n'$_MITSUHIKO_PROMPT$(git_super_status)$(virtualenv_prompt_info) > $_MITSUHIKO_ASYNC_PROMPT_FN
+    echo -n $''$_MITSUHIKO_PROMPT$(git_super_status)$(virtualenv_prompt_info) > $_MITSUHIKO_ASYNC_PROMPT_FN
     if [[ x$_mitsuhiko_rv != x0 ]]; then
       echo -n " exited %{$fg[red]%}$_mitsuhiko_rv%{$reset_color%}" >> $_MITSUHIKO_ASYNC_PROMPT_FN
     fi
-    echo -n $' \n$ ' >> $_MITSUHIKO_ASYNC_PROMPT_FN
+    echo -n $'\n$ ' >> $_MITSUHIKO_ASYNC_PROMPT_FN
 
     # signal parent
     kill -s USR1 $$

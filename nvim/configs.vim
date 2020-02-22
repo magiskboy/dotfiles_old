@@ -7,7 +7,7 @@ set t_Co=256
 
 syntime on
 
-colorscheme solarized8
+" colorscheme xcodedark
 
 " Don't make Vim vi-compatibile.
 set nocompatible
@@ -31,8 +31,8 @@ set colorcolumn=79
 
 set signcolumn=yes
 
-" Highlight the current line.
-set cursorline
+" No highlight the current line.
+set nocursorline
 
 " Use UTF-8 without BOM.
 set encoding=utf-8 nobomb
@@ -175,8 +175,8 @@ let b:ale_linters = {
     \}
 
 " Setting icon before error/warning ale
-let g:ale_sign_error = '•'
-let g:ale_sign_warning = '•'
+let g:ale_sign_error = '*'
+let g:ale_sign_warning = '*'
 
 " Format ALE message
 let g:ale_python_pylint_use_msg_id = 1
@@ -237,20 +237,19 @@ function FZF_Wrapper()
         \'source': <sid>files(),
         \ 'sink': function('s:edit_file'),
         \ 'options': '-m --preview "bat {} --color=always --theme=base16"',
-        \ 'down': '60%' })
+        \ 'down': '100%' })
 endfunction
 
-hi ALEWarning cterm=BOLD ctermbg=NONE ctermfg=NONE gui=BOLD guibg=NONE guifg=NONE
 hi GitGutterAdd cterm=BOLD ctermbg=NONE ctermfg=green gui=BOLD guibg=NONE guifg=lightgreen
 hi GitGutterDelete cterm=BOLD ctermbg=NONE ctermfg=red gui=BOLD guibg=NONE guifg=red
 hi GitGutterChange cterm=BOLD ctermbg=NONE ctermfg=lightblue gui=BOLD guibg=NONE guifg=lightblue
+hi ALEWarning cterm=BOLD ctermbg=NONE ctermfg=NONE gui=BOLD guibg=NONE guifg=NONE
 hi ALEErrorSign cterm=BOLD ctermbg=NONE ctermfg=red gui=BOLD guibg=NONE guifg=red
 hi ALEWarningSign cterm=BOLD ctermbg=NONE ctermfg=white gui=BOLD guibg=NONE guifg=yellow
 hi EndOfBuffer cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=bg
 hi VertSplit cterm=NONE ctermbg=NONE ctermfg=234 gui=NONE guibg=NONE guifg=grey
 hi LineNr cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=NONE
-hi Visual ctermbg=242 guifg=#F14B20 guibg=#BEBEAB
-hi Search ctermbg=242 guifg=#F14B20 guibg=#BEBEAB
-hi IncSearch ctermbg=242 guifg=#F14B20 guibg=#BEBEAB
+hi Pmenu guibg=#444934 guifg=0
+hi ColorColumn guibg=#444543
 hi MyGroup gui=bold
 match MyGroup /./

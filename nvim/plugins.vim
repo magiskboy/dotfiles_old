@@ -11,8 +11,6 @@ Plug 'scrooloose/nerdtree'
 " Show changed git status in sign column
 Plug 'airblade/vim-gitgutter'
 
-Plug 'lifepillar/vim-solarized8'
-
 " Indent guild line
 Plug 'Yggdroot/indentLine'
 
@@ -25,16 +23,12 @@ Plug 'ap/vim-css-color'
 " Vim tag bar
 Plug 'majutsushi/tagbar'
 
-Plug 'tpope/vim-surround'
-
 " ================ Utilities ==================
 " Asynchronous syntax checker
 Plug 'w0rp/ale'
 
 " Code completion engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 
 " Solid pack language syntax highlight
 Plug 'sheerun/vim-polyglot'
@@ -56,8 +50,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'janko/vim-test'
 
 Plug 'tpope/vim-commentary'
-
-Plug 'sbdchd/neoformat'
 
 Plug 'tibabit/vim-templates'
 
