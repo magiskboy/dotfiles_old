@@ -55,7 +55,7 @@ function _mitsuhiko_precmd() {
     if [[ x$_mitsuhiko_rv != x0 ]]; then
       echo -n " exited %{$fg[red]%}$_mitsuhiko_rv%{$reset_color%}" >> $_MITSUHIKO_ASYNC_PROMPT_FN
     fi
-    echo -n $'\n$ ' >> $_MITSUHIKO_ASYNC_PROMPT_FN
+    echo -n $'\n😎 ' >> $_MITSUHIKO_ASYNC_PROMPT_FN
 
     # signal parent
     kill -s USR1 $$
