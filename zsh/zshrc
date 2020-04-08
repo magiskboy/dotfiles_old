@@ -7,6 +7,7 @@ plugins=(
   git-prompt
   virtualenv
   vi-mode
+  docker
   zsh-autosuggestions
   zsh-syntax-highlighting
 )

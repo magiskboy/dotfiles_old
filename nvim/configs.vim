@@ -7,8 +7,6 @@ set t_Co=256
 
 syntime on
 
-" colorscheme xcodedark
-
 " Don't make Vim vi-compatibile.
 set nocompatible
 
@@ -18,7 +16,11 @@ syntax on
 " Don't break line when width line more than width window
 set wrap
 
-set updatetime=100
+set regexpengine=1
+
+set noshowcmd
+
+set updatetime=10
 
 " Copy indent to the new line.
 set autoindent
@@ -27,7 +29,7 @@ set autoindent
 set clipboard=unnamed
 
 " Highlight certain column(s).
-set colorcolumn=79
+set colorcolumn=0
 
 set signcolumn=yes
 
@@ -62,7 +64,7 @@ set fillchars+=vert:│
 set ruler
 
  " Limit syntax highlighting (this avoids the very slow redrawing when files contain long lines).
-set synmaxcol=256
+set synmaxcol=200
 
 syntax sync minlines=100
 
