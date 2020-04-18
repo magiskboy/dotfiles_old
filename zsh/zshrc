@@ -5,6 +5,7 @@ ZSH_THEME="nkthanh"
 plugins=(
   git
   git-prompt
+  git-auto-fetch
   virtualenv
   vi-mode
   docker
