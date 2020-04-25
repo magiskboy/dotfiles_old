@@ -23,9 +23,10 @@ Plug 'ap/vim-css-color'
 " Vim tag bar
 Plug 'majutsushi/tagbar'
 
-" ================ Utilities ==================
 " Asynchronous syntax checker
 Plug 'w0rp/ale'
+
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Code completion engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
