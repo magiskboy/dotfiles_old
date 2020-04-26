@@ -6,15 +6,23 @@ GO_VERSION=1.14.2
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 function setup_base() {
-    [[ -d $LOCAL/bin ]] && md $LOCAL/bin
-    sudo apt install install bat tldr ripgrep exuberant-ctags tree htop git curl
+    [[ -d $LOCAL/bin ]] && mkdir $LOCAL/bin
+    sudo apt install install bat tldr ripgrep exuberant-ctags tree htop git curl fzf pgcli dbcli
     ln -sf $(pwd)/scripts/utility.py $LOCAL/bin/utility
 }
 
+function setup_ssh() {
+    [ ! -d $HOME/.ssh ] && mkdir $HOME/.ssh
+    ln -sf $(pwd)/ssh-config $HOME/.ssh/config
+    ssh-keygen -f $HOME/.ssh/id_rsa
+}
+
 function setup_neovim() {
-    sudo apt install neovim fzf
-    python -m pip install --user pynvim && \
-    python3 -m pip install --user pynvim
+    PY_PACKAGE="psutil jedi pylint pynvim"
+    python -m pip install --user $PY_PACKAGE && \
+    python3 -m pip install --user $PY_PACKAGE
+    NODE_PACKAGE="dockerfile-language-server-nodejs bash-language-server"
+    sudo npm i -g $NODE_PACKAGE
     rm -rf ~/.vim ~/.config/nvim && \
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -22,10 +30,8 @@ function setup_neovim() {
 }
 
 function setup_python() {
-    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-    PY_PACKAGE="psutil jedi pylint"
-    python -m pip install --user $PY_PACKAGE && \
-    python3 -m pip install --user $PY_PACKAGE
+    git clone https://github.com/pyenv/pyenv.git ~/.pyenv && \
+    pip install pipenv
 }
 
 function setup_java() {
@@ -46,7 +52,6 @@ function setup_go() {
 }
 
 function setup_dbcli() {
-    sudo apt install pgcli mycli
     rm -rf ~/.myclirc ~/.config/pgcli
     ln -sf `pwd`/dbcli/myclirc ~/.myclirc
     mkdir -p ~/.config/pgcli

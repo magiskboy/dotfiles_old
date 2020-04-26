@@ -231,7 +231,7 @@ let g:HardMode_hardmodeMsg = 'Don''t use this!'
 let g:tmpl_search_paths = ['~/workspace/dotfiles/nvim/templates']
 let g:tmpl_author_email = 'nguyenkhacthanh244@gmail.com'
 
-let g:go_version_warning = 0
+" let g:go_version_warning = 0
 
 
 if executable('rg')
