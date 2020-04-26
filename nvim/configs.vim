@@ -103,7 +103,7 @@ set guioptions+=c
 
 set diffopt+=vertical
 
-let g:python3_host_prog = expand('/usr/bin/python3')
+let g:python3_host_prog = expand('/home/nkthanh/.pyenv/shims/python')
 let g:python_host_prog = expand('/usr/bin/python')
 
 " ============= Ident line ==============
@@ -117,7 +117,7 @@ let g:indentLine_color_term = 239
 " Ignore entries for NERDTree
 let NERDTreeIgnore = [
     \'node_modules', 'bower_components', 'build', 'dist',
-    \'env', '__pycache__', '.pytest_cache',
+    \'env/', '__pycache__', '.pytest_cache',
     \'.class'
     \]
 
@@ -230,6 +230,8 @@ let g:HardMode_hardmodeMsg = 'Don''t use this!'
 "
 let g:tmpl_search_paths = ['~/workspace/dotfiles/nvim/templates']
 let g:tmpl_author_email = 'nguyenkhacthanh244@gmail.com'
+
+let g:go_version_warning = 0
 
 
 if executable('rg')
