@@ -7,7 +7,7 @@ OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 function setup_base() {
     [[ -d $LOCAL/bin ]] && mkdir $LOCAL/bin
-    sudo apt install install bat tldr ripgrep exuberant-ctags tree htop git curl fzf pgcli dbcli
+    sudo apt install install bat tldr ripgrep exuberant-ctags tree htop git curl fzf pgcli dbcli fdfind
     ln -sf $(pwd)/scripts/utility.py $LOCAL/bin/utility
 }
 
