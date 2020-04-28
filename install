@@ -7,7 +7,7 @@ OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 function setup_base() {
     [[ -d $LOCAL/bin ]] && mkdir $LOCAL/bin
-    sudo apt install install bat tldr ripgrep exuberant-ctags tree htop git curl fzf pgcli dbcli fdfind
+    sudo apt install install bat tldr ripgrep exuberant-ctags tree htop git curl fzf pgcli dbcli fdfind zsh tmux
     ln -sf $(pwd)/scripts/utility.py $LOCAL/bin/utility
 }
 
@@ -49,6 +49,7 @@ function setup_go() {
     curl -LO $GO_URL && \
     tar -xzf $FILENAME -C $LOCAL && \
     rm -f $FILENAME
+    curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 }
 
 function setup_dbcli() {
@@ -66,13 +67,11 @@ function setup_git() {
 }
 
 function setup_tmux() {
-    sudo apt install tmux && \
     rm -rf ~/.tmux.conf && \
     ln -sf $(pwd)/tmux/tmux.conf ~/.tmux.conf
 }
 
 function setup_zsh() {
-    sudo apt install zsh && \
     rm -rf ~/.zshrc ~/.oh-my-zsh && \
     ln -sf $(pwd)/zsh/zshrc ~/.zshrc && \
     ln -sf $(pwd)/zsh/oh-my-zsh ~/.oh-my-zsh && \

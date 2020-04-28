@@ -53,7 +53,7 @@ set lazyredraw
 set mousehide
 
 " Show line number.
-set number relativenumber numberwidth=5
+set number numberwidth=5
 
 " Set border for window
 set fillchars+=vert:│
@@ -102,6 +102,8 @@ set laststatus=2
 set guioptions+=c
 
 set diffopt+=vertical
+
+set regexpengine=1
 
 let g:python3_host_prog = expand('/home/nkthanh/.pyenv/shims/python')
 let g:python_host_prog = expand('/usr/bin/python')
@@ -188,22 +190,14 @@ let g:ale_set_highlights = 0
 " Setting ale window
 let g:ale_open_list = 0
 
-" ============= One dark theme ==============
-" Hidden end of buffer `~`
-let g:onedark_hide_endofbuffer = 1
-
-" Simulator italic font
-let g:onedark_terminal_italics = 1
-
 " ============= Tagbar ===============
 " Set dropdown for tagbar
 let g:tagbar_iconchars = ['▸', '▾']
 
-
 " ========== vim-test ============
 let test#strategy = {
-  \ 'nearest': 'neovim',
-  \ 'file':    'neovim',
+  \ 'nearest': 'basic',
+  \ 'file':    'basic',
   \ 'suite':   'basic',
 \}
 
@@ -222,17 +216,6 @@ autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 autocmd BufWritePost * GitGutter
-
-" Hard mode, disable arrow key
-let g:HardMode_level = 'wannabe'
-let g:HardMode_hardmodeMsg = 'Don''t use this!'
-" autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-"
-let g:tmpl_search_paths = ['~/workspace/dotfiles/nvim/templates']
-let g:tmpl_author_email = 'nguyenkhacthanh244@gmail.com'
-
-" let g:go_version_warning = 0
-
 
 if executable('rg')
     let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
