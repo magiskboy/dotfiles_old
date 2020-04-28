@@ -37,24 +37,8 @@ alias fd="fdfind"
 alias use_pyenv="eval \"$(pyenv init -)\""
 
 autoload -Uz compinit
-
-function search() {
-    k="$@"
-    files=$(rg -l $k)
-    [ ! -z $files ] && fzf --preview "bat {} --color=always" --bind "enter:execute(nvim {})" <<< $files
-}
-
-function runtest() {
-    branch=$1
-    submit=$2
-    for file in $(rg -l "SC-$branch"); do
-        if [[ ! -z $submit ]]; then
-            pytest $file --submit
-        else
-            pytest $file
-        fi
-    done
-}
+autoload -Uz fs
+autoload -Uz runtest
 
 function _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"

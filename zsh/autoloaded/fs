@@ -1,0 +1,3 @@
+k="$@"
+files=$(rg -l $k)
+[ ! -z $files ] && fzf --preview "bat {} --color=always" --bind "enter:execute(nvim {})" <<< $files
