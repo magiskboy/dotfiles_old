@@ -36,6 +36,7 @@ alias themes="bash -c  \"$(wget -qO- https://git.io/vQgMr)\""
 alias fd="fdfind"
 alias use_pyenv="eval \"$(pyenv init -)\""
 
+
 autoload -Uz compinit
 autoload -Uz fs
 autoload -Uz runtest

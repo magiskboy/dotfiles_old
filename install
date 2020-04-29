@@ -78,6 +78,10 @@ function setup_zsh() {
     ln -sf $(pwd)/zsh/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && \
     ln -sf $(pwd)/zsh/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && \
     ln -sf $(pwd)/zsh/themes/nkthanh.zsh-theme ~/.oh-my-zsh/custom/themes
+    ln -sf $(pwd)/zlogin $HOME/.zlogin
+    ln -sf $sf $(pwd)/zprofile $HOME/.zprofile
+    ln -sf $sf $(pwd)/zshenv $HOME/.zshenv
+    ln -sf $sf $(pwd)/zshrc $HOME/.zshrc
 }
 
 eval "setup_$1"
