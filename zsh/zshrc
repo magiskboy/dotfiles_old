@@ -33,7 +33,6 @@ alias md="mkdir"
 alias rmwp="find . -type f -name '*.py' -exec sed -i '' 's/[[:space:]]\{1,\}$//' {} \+"
 alias f="fzf --preview=\"bat {} --color=always --theme='Monokai Extended Origin'\""
 alias gh="git rev-parse --short HEAD"
-alias themes="bash -c  \"$(wget -qO- https://git.io/vQgMr)\""
 alias fd="fdfind"
 alias use_pyenv="eval \"$(pyenv init -)\""
 

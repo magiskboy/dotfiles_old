@@ -12,7 +12,7 @@ git_current_branch () {
     echo ${ref#refs/heads/}
 }
 
-alias ls="ls --color=always"
+alias ls="ls -G"
 alias ll="ls -lh"
 alias g="git"
 alias ga="git add"
