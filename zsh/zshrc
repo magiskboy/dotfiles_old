@@ -38,8 +38,6 @@ alias use_pyenv="eval \"$(pyenv init -)\""
 
 
 autoload -Uz compinit
-autoload -Uz fs
-autoload -Uz runtest
 
 function _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
@@ -62,10 +60,23 @@ function _fzf_comprun() {
 }
 
 
-if [[ $(uname -s) == "Darwin" ]]; then
+if [[ $OS == "darwin" ]]; then
     if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
         compinit;
     else
         compinit -C;
     fi
 fi
+
+my_loader=$ZSH_CONFIG/autoloaded
+fpath=(
+    $my_loader
+    $fpath
+)
+if [[ -d $my_loader ]]; then
+    for func in $my_loader/*; do
+        echo ${func:t}
+        autoload -Uz ${func:t}
+    done
+fi
+unset my_loader

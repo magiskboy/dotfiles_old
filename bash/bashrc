@@ -12,7 +12,12 @@ git_current_branch () {
     echo ${ref#refs/heads/}
 }
 
-alias ls="ls -G"
+export OS=$(uname -s | tr "[:upper:]" "[:lower:]")
+if [[ $OS == "darwin" ]]; then
+    alias ls="ls -G"
+else
+    alias ls="ls --color=always"
+fi
 alias ll="ls -lh"
 alias g="git"
 alias ga="git add"

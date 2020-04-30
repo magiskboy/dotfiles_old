@@ -95,7 +95,9 @@ function setup_zsh() {
 }
 
 function setup_bash() {
-    rm -rf $HOME/.bashrc && ln -sf $(pwd)/bash/bashrc $HOME/.bashrc
+    rm -rf $HOME/.bashrc $HOME/.profile
+    ln -sf $(pwd)/bash/bashrc $HOME/.bashrc
+    ln -sf $(pwd)/bash/bash_profile $HOME/.bash_profile
 }
 
 eval "setup_$1"
