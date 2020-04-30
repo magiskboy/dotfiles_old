@@ -1,11 +1,12 @@
 # Created by Armin Ronacher github@mitsuhiko
 setopt prompt_subst
-#export LS_COLORS=ExGxFxDxCxHxHxCbCeEbEb
+# export LS_COLORS=ExGxFxDxCxHxHxCbCeEbEb
 
-ZSH_THEME_GIT_PROMPT_PREFIX=" on %{$fg[blue]%}git%{$reset_color%}:"
+PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)$(branch_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
+ZSH_THEME_GIT_PROMPT_PREFIX=" on %{$fg[cyan]%}git%{$reset_color%}:"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%}+"
-ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[yellow]%}"
+ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"
 ZSH_THEME_GIT_PROMPT_SEPARATOR=""
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[green]?%G%}"
@@ -23,7 +24,7 @@ _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' in %{$fg_bold[green]%}% %(7~|.../%6~|%~)%{
 # This is the base prompt that is rendered sync.  It should be
 # fast to render as a result.  The extra whitespace before the
 # newline is necessary to avoid some rendering bugs.
-PROMPT=$_MITSUHIKO_PROMPT$'\n '
+PROMPT=$_MITSUHIKO_PROMPT$'$ '
 RPROMPT=''
 
 # The pid of the async prompt process and the communication file
@@ -47,11 +48,11 @@ function _mitsuhiko_precmd() {
     precmd_update_git_vars
 
     #
-    echo -n $'\n'$_MITSUHIKO_PROMPT$(git_super_status)$(virtualenv_prompt_info) > $_MITSUHIKO_ASYNC_PROMPT_FN
+    echo -n $''$_MITSUHIKO_PROMPT$(git_super_status)$(virtualenv_prompt_info) > $_MITSUHIKO_ASYNC_PROMPT_FN
     if [[ x$_mitsuhiko_rv != x0 ]]; then
       echo -n " exited %{$fg[red]%}$_mitsuhiko_rv%{$reset_color%}" >> $_MITSUHIKO_ASYNC_PROMPT_FN
     fi
-    echo -n $' \n 😎 ' >> $_MITSUHIKO_ASYNC_PROMPT_FN
+    echo -n $'\n😎 ' >> $_MITSUHIKO_ASYNC_PROMPT_FN
 
     # signal parent
     kill -s USR1 $$

@@ -5,9 +5,9 @@ set termguicolors
 
 set t_Co=256
 
-syntime on
-
 colorscheme monokai
+
+syntime on
 
 " Don't make Vim vi-compatibile.
 set nocompatible
@@ -15,10 +15,16 @@ set nocompatible
 " Enable syntax highlighting.
 syntax on
 
+set shell=/bin/bash
+
 " Don't break line when width line more than width window
 set wrap
 
-set updatetime=100
+set regexpengine=1
+
+set noshowcmd
+
+set updatetime=10
 
 " Copy indent to the new line.
 set autoindent
@@ -27,12 +33,12 @@ set autoindent
 set clipboard=unnamed
 
 " Highlight certain column(s).
-set colorcolumn=80
+set colorcolumn=0
 
 set signcolumn=yes
 
-" Highlight the current line.
-set cursorline
+" No highlight the current line.
+set nocursorline
 
 " Use UTF-8 without BOM.
 set encoding=utf-8 nobomb
@@ -62,7 +68,7 @@ set fillchars+=vert:│
 set ruler
 
  " Limit syntax highlighting (this avoids the very slow redrawing when files contain long lines).
-set synmaxcol=256
+set synmaxcol=200
 
 syntax sync minlines=100
 
@@ -77,7 +83,7 @@ set undofile noswapfile nobackup
 set undodir=/tmp
 
 " Allow cursor to be anywhere.
-set virtualedit=all
+" set virtualedit=all
 
 " Disable beeping and window flashing
 set novisualbell
@@ -105,7 +111,7 @@ set diffopt+=vertical
 
 set regexpengine=1
 
-let g:python3_host_prog = expand('/home/nkthanh/.pyenv/shims/python')
+let g:python3_host_prog = expand('$PYENV_ROOT/shims/python')
 let g:python_host_prog = expand('/usr/bin/python')
 
 " ============= Ident line ==============
@@ -177,8 +183,8 @@ let b:ale_linters = {
     \}
 
 " Setting icon before error/warning ale
-let g:ale_sign_error = '•'
-let g:ale_sign_warning = '•'
+let g:ale_sign_error = '*'
+let g:ale_sign_warning = '*'
 
 " Format ALE message
 let g:ale_python_pylint_use_msg_id = 1
@@ -236,15 +242,52 @@ function FZF_Wrapper()
         \'source': <sid>files(),
         \ 'sink': function('s:edit_file'),
         \ 'options': '-m --preview "bat {} --color=always --theme=\"Monokai Extended Origin\""',
-        \ 'down': '60%' })
+        \ 'down': '100%' })
 endfunction
 
-hi ALEWarning cterm=BOLD ctermbg=NONE ctermfg=NONE gui=BOLD guibg=NONE guifg=NONE
+function! OpenFloatTerm()
+  let height = float2nr((&lines - 2) / 1.5)
+  let row = float2nr((&lines - height) / 2)
+  let width = float2nr(&columns / 1.5)
+  let col = float2nr((&columns - width) / 2)
+  " Border Window
+  let border_opts = {
+    \ 'relative': 'editor',
+    \ 'row': row - 1,
+    \ 'col': col - 2,
+    \ 'width': width + 4,
+    \ 'height': height + 2,
+    \ 'style': 'minimal'
+    \ }
+  let border_buf = nvim_create_buf(v:false, v:true)
+  let s:border_win = nvim_open_win(border_buf, v:true, border_opts)
+  " Main Window
+  let opts = {
+    \ 'relative': 'editor',
+    \ 'row': row,
+    \ 'col': col,
+    \ 'width': width,
+    \ 'height': height,
+    \ 'style': 'minimal'
+    \ }
+  let buf = nvim_create_buf(v:false, v:true)
+  let win = nvim_open_win(buf, v:true, opts)
+  terminal
+  startinsert
+  " Hook up TermClose event to close both terminal and border windows
+  autocmd TermClose * ++once :q | call nvim_win_close(s:border_win, v:true)
+endfunction
+
 hi GitGutterAdd cterm=BOLD ctermbg=NONE ctermfg=green gui=BOLD guibg=NONE guifg=lightgreen
 hi GitGutterDelete cterm=BOLD ctermbg=NONE ctermfg=red gui=BOLD guibg=NONE guifg=red
 hi GitGutterChange cterm=BOLD ctermbg=NONE ctermfg=lightblue gui=BOLD guibg=NONE guifg=lightblue
+hi ALEWarning cterm=BOLD ctermbg=NONE ctermfg=NONE gui=BOLD guibg=NONE guifg=NONE
 hi ALEErrorSign cterm=BOLD ctermbg=NONE ctermfg=red gui=BOLD guibg=NONE guifg=red
 hi ALEWarningSign cterm=BOLD ctermbg=NONE ctermfg=white gui=BOLD guibg=NONE guifg=yellow
 hi EndOfBuffer cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=bg
 hi VertSplit cterm=NONE ctermbg=NONE ctermfg=234 gui=NONE guibg=NONE guifg=grey
 hi LineNr cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=NONE
+hi Pmenu guibg=#444934 guifg=0
+hi ColorColumn guibg=#444543
+hi MyGroup gui=bold
+match MyGroup /./

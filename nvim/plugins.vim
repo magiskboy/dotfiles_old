@@ -28,10 +28,10 @@ Plug 'crusoexia/vim-monokai'
 " Asynchronous syntax checker
 Plug 'w0rp/ale'
 
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 " Code completion engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 
 " Solid pack language syntax highlight
 Plug 'sheerun/vim-polyglot'

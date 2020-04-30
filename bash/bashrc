@@ -1,0 +1,34 @@
+#!/bin/bash
+
+git_current_branch () {
+    local ref
+    ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
+    local ret=$?
+    if [[ $ret != 0 ]]
+    then
+            [[ $ret == 128 ]] && return
+            ref=$(command git rev-parse --short HEAD 2> /dev/null)  || return
+    fi
+    echo ${ref#refs/heads/}
+}
+
+alias ls="ls --color=always"
+alias ll="ls -lh"
+alias g="git"
+alias ga="git add"
+alias gaa="git add --all"
+alias gb="git branch"
+alias gba="git branch -a"
+alias gc="git commit -v"
+alias gc!="git commit -v --amend"
+alias gcn!="git commit -v --no-edit --amend"
+alias gd="git diff"
+alias gco="git checkout"
+alias gf="git fetch"
+alias ggpull="git pull origin '$(git_current_branch)'"
+alias ggpush="git push origin '$(git_current_branch)'"
+
+
+if ! [ -n "${SUDO_USER}" -a -n "${SUDO_PS1}" ]; then
+  PS1='${debian_chroot:+($debian_chroot)}\e[35m\u:\e[92m\w\n\e[39m\$ '
+fi

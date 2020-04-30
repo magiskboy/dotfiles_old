@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 
 # 1. Clone source code neovim from github
 git clone git@github.com:neovim/neovim.git && cd neovim
