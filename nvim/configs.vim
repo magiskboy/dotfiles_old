@@ -5,7 +5,7 @@ set termguicolors
 
 set t_Co=256
 
-colorscheme monokai
+colorscheme molokai
 
 syntime on
 

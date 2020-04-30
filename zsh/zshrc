@@ -75,7 +75,6 @@ fpath=(
 )
 if [[ -d $my_loader ]]; then
     for func in $my_loader/*; do
-        echo ${func:t}
         autoload -Uz ${func:t}
     done
 fi

@@ -100,4 +100,16 @@ function setup_bash() {
     ln -sf $(pwd)/bash/bash_profile $HOME/.bash_profile
 }
 
+function setup_font() {
+    local FONTDIR
+    if [[ $OS == "darwin" ]]; then
+        FONTDIR=$HOME/Library/Fonts
+    else
+        FONTDIR=$LOCAL/share/fonts
+    fi
+    [ -d $FONTDIR ] && mkdir -p $FONTDIR
+    curl -fLo "$FONTDIR/Hack Nerd Font Complete.otf" \
+        https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf
+}
+
 eval "setup_$1"

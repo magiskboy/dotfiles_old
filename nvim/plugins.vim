@@ -22,7 +22,7 @@ Plug 'majutsushi/tagbar'
 
 Plug 'tpope/vim-surround'
 
-Plug 'crusoexia/vim-monokai'
+Plug 'tomasr/molokai'
 
 " ================ Utilities ==================
 " Asynchronous syntax checker
