@@ -290,4 +290,5 @@ hi LineNr cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=NONE
 hi Pmenu guibg=#444934 guifg=0
 hi ColorColumn guibg=#444543
 hi MyGroup gui=bold
+hi Comment gui=italic
 match MyGroup /./
