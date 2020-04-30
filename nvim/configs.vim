@@ -5,6 +5,8 @@ set termguicolors
 
 set t_Co=256
 
+colorscheme edge
+
 syntime on
 
 " Don't make Vim vi-compatibile.
@@ -105,7 +107,9 @@ set guioptions+=c
 
 set diffopt+=vertical
 
-let g:python3_host_prog = expand('/usr/bin/python3')
+set regexpengine=1
+
+let g:python3_host_prog = expand('$PYENV_ROOT/shims/python')
 let g:python_host_prog = expand('/usr/bin/python')
 
 " ============= Ident line ==============
@@ -216,9 +220,6 @@ autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 autocmd BufWritePost * GitGutter
-
-let g:tmpl_search_paths = ['~/workspace/dotfiles/nvim/templates']
-let g:tmpl_author_email = 'nguyenkhacthanh244@gmail.com'
 
 if executable('rg')
     let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'

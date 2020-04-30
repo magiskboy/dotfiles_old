@@ -3,22 +3,26 @@
 LOCAL=$HOME/.local
 MAVEN_VERSION=3.6.3
 GO_VERSION=1.14.2
+OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 
-function base() {
-    [[ -d $LOCAL/bin ]] && md $LOCAL/bin
-    brew install bat tldr ripgrep ctags tree htop
-    ln -sf $(pwd)/scripts/utility.py $LOCAL/bin/utility
+function setup_base() {
+    [ ! -d $LOCAL/bin ] && mkdir $LOCAL/bin
+    brew install git tmux zsh neovim fzf mycli pgcli bat tldr ripgrep ctags tree htop ccls
 }
 
 function setup_neovim() {
     PY_PACKAGE="pynvim psutil jedi pylint"
-    brew install neovim fzf
     python -m pip install --user $PY_PACKAGE && \
     python3 -m pip install --user $PY_PACKAGE
     rm -rf ~/.vim ~/.config/nvim && \
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     ln -sf $(pwd)/nvim ~/.config/nvim
+}
+
+function setup_python() {
+    git clone https://github.com/pyenv/pyenv.git ~/.pyenv && \
+    pip install pipenv
 }
 
 function setup_java() {
@@ -39,7 +43,6 @@ function setup_go() {
 }
 
 function setup_dbcli() {
-    brew install pgcli mycli
     rm -rf ~/.myclirc ~/.config/pgcli
     ln -sf `pwd`/dbcli/myclirc ~/.myclirc
     mkdir -p ~/.config/pgcli
@@ -54,20 +57,21 @@ function setup_git() {
 }
 
 function setup_tmux() {
-    brew install tmux && \
     rm -rf ~/.tmux.conf && \
     ln -sf $(pwd)/tmux/tmux.conf ~/.tmux.conf
 }
 
 function setup_zsh() {
-    brew install zsh && \
-    rm -rf ~/.zshrc && \
-    rm -rf ~/.oh-my-zsh && \
+    rm -rf ~/.zshrc ~/.oh-my-zsh ~/.zshrc ~/.zshenv ~/.zlogin ~/.zprofile && \
     ln -sf $(pwd)/zsh/zshrc ~/.zshrc && \
     ln -sf $(pwd)/zsh/oh-my-zsh ~/.oh-my-zsh && \
     ln -sf $(pwd)/zsh/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && \
     ln -sf $(pwd)/zsh/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && \
-    ln -sf $(pwd)/zsh/themes/nkthanh.zsh-theme ~/.oh-my-zsh/custom/themes
+    ln -sf $(pwd)/zsh/themes/nkthanh.zsh-theme ~/.oh-my-zsh/custom/themes && \
+    ln -sf $(pwd)/zsh/zshenv $HOME/.zshenv && \
+    ln -sf $(pwd)/zsh/zshrc $HOME/.zshrc && \
+    ln -sf $(pwd)/zsh/zlogin $HOME/.zlogin && \
+    ln -sf $(pwd)/zsh/zprofile $HOME/.zprofile
 }
 
 eval "setup_$1"

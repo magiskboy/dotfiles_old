@@ -1,12 +1,12 @@
 # Created by Armin Ronacher github@misuhiko
 setopt prompt_subst
-#export LS_COLORS=ExGxFxDxCxHxHxCbCeEbEb
+# export LS_COLORS=ExGxFxDxCxHxHxCbCeEbEb
 
 PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)$(branch_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
-ZSH_THEME_GIT_PROMPT_PREFIX=" on %{$fg[blue]%}git%{$reset_color%}:"
+ZSH_THEME_GIT_PROMPT_PREFIX=" on %{$fg[cyan]%}git%{$reset_color%}:"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%}+"
-ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[yellow]%}"
+ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"
 ZSH_THEME_GIT_PROMPT_SEPARATOR=""
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[green]?%G%}"
@@ -17,18 +17,15 @@ ZSH_THEME_VIRTUALENV_SUFFIX="%{$reset_color%}"
 
 # This is the basic prompt that is always printed.  It will be
 # enclosed to make it newline.
-# _MITSUHIKO_PROMPT='%{$fg_bold[yellow]%}%T%{$reset_color%} - '
-_MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT'%{$fg_bold[magenta]%}%n%{$reset_color%}'
-_MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' at %{$fg_bold[yellow]%}% `hostname -s`%{$reset_color%}'
-_MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' in %{$fg_bold[green]%}% %(7~|.../%6~|%~)%{$reset_color%}'
-_MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT' with %{$fg[cyan]%}`python -V`%{$reset_color%}'
+# _MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT'%{$fg_bold[magenta]%}%n%{$reset_color%}'
+_MITSUHIKO_PROMPT=$_MITSUHIKO_PROMPT'%{$fg_bold[green]%}% %(7~|.../%6~|%~)%{$reset_color%}'
 
 
 # This is the base prompt that is rendered sync.  It should be
 # fast to render as a result.  The extra whitespace before the
 # newline is necessary to avoid some rendering bugs.
 PROMPT=$_MITSUHIKO_PROMPT$'$ '
-RPROMPT='%{$fg_bold[red]%}$(get_bg_job)'
+RPROMPT=''
 
 # The pid of the async prompt process and the communication file
 _MITSUHIKO_ASYNC_PROMPT=1

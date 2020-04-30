@@ -14,21 +14,6 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-
-export PYTHONDONTWRITEBYTECODE=1
-export PYENV_EXTENSION=-env
-export PATH="$HOME/.local/bin:$PATH"
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home
-export M2_HOME=$HOME/.local/apache-maven-3.6.3
-export M2=$M2_HOME/bin
-export PATH=$M2:$PATH
-export GOPATH=$HOME/workspace/go
-export GOBIN=$GOPATH/bin
-export PATH=$GOBIN:$PATH
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export PATH=~/opt/anaconda3/bin:$PATH
 
 alias genssl="openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert.key -out cert.crt"
 alias genmacaddr="openssl rand -hex 6 | sed 's/\(..\)/\1:/g;s/.$//'"
@@ -41,20 +26,10 @@ alias gg="cd ~/workspace/go/src/github.com/nkthanh98"
 alias cl="clear"
 
 
-function get_bg_job() {
-    job=$(jobs -l | tail -n 1 | sed "s/\(.*\)  \(.*\)/\2/g")
-    [[ ! -z $job ]] && echo $job
-}
+autoload -Uz compinit
 
-function gi () {
-    curl -fL https://www.gitignore.io/api/${(j:,:)@}
-}
-
-function cd() {
-    [[ ! -z $VIRTUAL_ENV ]] && deactivate 2> /dev/null
-    builtin cd "$@"
-    local FILE
-    for FILE in `find . -maxdepth 1 -type d -name "*$PYENV_EXTENSION"`; do
-        [ -f $FILE\/bin\/activate ] && source $FILE\/bin\/activate && return
-    done
-}
+if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
+    compinit;
+else
+    compinit -C;
+fi

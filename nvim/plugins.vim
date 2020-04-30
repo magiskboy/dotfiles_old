@@ -17,8 +17,7 @@ Plug 'Yggdroot/indentLine'
 " Vim modern status line
 Plug 'vim-airline/vim-airline'
 
-" Preview color in css
-Plug 'ap/vim-css-color'
+Plug 'sainnhe/edge'
 
 " Vim tag bar
 Plug 'majutsushi/tagbar'
@@ -51,8 +50,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'janko/vim-test'
 
 Plug 'tpope/vim-commentary'
-
-Plug 'tibabit/vim-templates'
 
 Plug 'heavenshell/vim-pydocstring'
 
