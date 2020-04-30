@@ -10,6 +10,7 @@ nmap  ts :TestSuite<cr>
 nmap <leader>p :call FZF_Wrapper()<cr>
 nmap <leader>r :Rg<cr>
 nmap <leader>t :Tags<cr>
+nmap <leader>aa :call OpenFloatTerm()<cr>
 
 " Minimize block code
 nnoremap <space> za
