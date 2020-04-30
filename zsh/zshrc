@@ -34,7 +34,7 @@ alias rmwp="find . -type f -name '*.py' -exec sed -i '' 's/[[:space:]]\{1,\}$//'
 alias f="fzf --preview=\"bat {} --color=always --theme='Monokai Extended Origin'\""
 alias gh="git rev-parse --short HEAD"
 alias fd="fdfind"
-alias use_pyenv="eval \"$(pyenv init -)\""
+alias tmux="TERM=screen-256color-bce tmux"
 
 
 autoload -Uz compinit

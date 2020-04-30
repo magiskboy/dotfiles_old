@@ -23,5 +23,4 @@
 ) &!
 
 [ ! -z $(which pipenv) ] && eval "$(pipenv --completion)"
-[ ! -z $(which pyenv) ] && eval "$(pyenv init -)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
