@@ -16,3 +16,4 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 export FZF_COMPLETION_TRIGGER='~~'
 export FZF_COMPLETION_OPTS='+c -x'
 export ZSH_CONFIG=$HOME/workspace/dotfiles/zsh
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#6eb579"

@@ -79,3 +79,5 @@ if [[ -d $my_loader ]]; then
     done
 fi
 unset my_loader
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -8,11 +8,13 @@ OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 function setup_base() {
     [[ -d $LOCAL/bin ]] && mkdir $LOCAL/bin
     if [[ $OS == "linux" ]]; then
-        sudo apt install install bat tldr ripgrep exuberant-ctags \
-            tree htop git curl fzf pgcli mycli fdfind zsh tmux    #@TODO install ccls
+	BATURL=https://github.com/sharkdp/bat/releases/download/v0.11.0/bat_0.11.0_amd64.deb
+	curl -fLO $BATURL && sudo dpkg -i $(basename $BATURL) && rm -f $(basename $BATURL)
+        sudo apt install tldr ripgrep exuberant-ctags \
+            tree htop git curl fzf pgcli mycli fd-find zsh tmux node npm libffi-dev   #@TODO install ccls
     else
         brew install bat tldr ripgrep ctags tree htop git curl fzf \
-            pgcli mycli fdfind zsh tmux ccls
+            pgcli mycli fdfind zsh tmux ccls node npm
     fi
 }
 
@@ -48,7 +50,7 @@ function setup_java() {
     FILENAME=$(basename $MAVEN_URL)
     curl -LO $MAVEN_URL && \
     unzip $FILENAME -d $LOCAL && \
-    ln -sf $LOCAL/apache-maven-$MAVEN_VERSION/bin/mvn $LOCAL/bin
+    ln -sf $LOCAL/apache-maven-$MAVEN_VERSION/bin/mvn $LOCAL/bin/mvn
     rm -f $FILENAME
 }
 
