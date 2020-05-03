@@ -73,8 +73,9 @@ function setup_dbcli() {
 
 function setup_git() {
     DIFF_SO_FANCY_URL=https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
-    curl -o $DIFF_SO_FANCY_URL $LOCAL/bin/ && \
-    chmod +x $LOCAL/bin/diff-so-fancy
+    NAME=$(basename $DIFF_SO_FANCY_URL)
+    curl -O $DIFF_SO_FANCY_URL && mv $NAME $LOCAL/bin/$NAME && \
+    chmod +x $LOCAL/bin/$NAME
     ln -sf $(pwd)/git/gitconfig ~/.gitconfig
 }
 

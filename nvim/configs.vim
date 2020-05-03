@@ -33,7 +33,7 @@ set autoindent
 set clipboard=unnamed
 
 " Highlight certain column(s).
-set colorcolumn=0
+set colorcolumn=79
 
 set signcolumn=yes
 
@@ -288,7 +288,8 @@ hi EndOfBuffer cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=bg
 hi VertSplit cterm=NONE ctermbg=NONE ctermfg=234 gui=NONE guibg=NONE guifg=grey
 hi LineNr cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=NONE
 hi Pmenu guibg=#444934 guifg=0
-hi ColorColumn guibg=#444543
-hi MyGroup gui=bold
+hi SignColumn guibg=NONE
+hi ColorColumn guibg=#262626
 hi Comment gui=italic
+hi MyGroup gui=bold
 match MyGroup /./
