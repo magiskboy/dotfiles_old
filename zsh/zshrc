@@ -9,6 +9,7 @@ plugins=(
   git-prompt
   git-auto-fetch
   gitignore
+  pip
   pipenv
   pyenv
   django

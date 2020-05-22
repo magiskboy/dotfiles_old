@@ -33,7 +33,7 @@ set autoindent
 set clipboard=unnamed
 
 " Highlight certain column(s).
-set colorcolumn=79
+set colorcolumn=100
 
 set signcolumn=yes
 
