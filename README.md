@@ -4,7 +4,7 @@
 ### How to install
 
 ```bash
-$ make install-[name package]
+$ ./install base
 ```
 
 Hey,

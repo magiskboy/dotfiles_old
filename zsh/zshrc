@@ -37,7 +37,6 @@ alias gh="git rev-parse --short HEAD"
 alias fd="fdfind"
 alias tmux="TERM=screen-256color-bce tmux"
 
-
 autoload -Uz compinit
 
 function _fzf_compgen_path() {
@@ -51,7 +50,6 @@ function _fzf_compgen_dir() {
 function _fzf_comprun() {
   local command=$1
   shift
-
   case "$command" in
     cd)           fzf "$@" --preview 'tree -C {}' ;;
     export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;

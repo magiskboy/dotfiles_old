@@ -11,6 +11,7 @@ export TERM=xterm-256color
 export TERMINFO=/usr/share/terminfo
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH=$PYENV_ROOT/bin:$PATH
+export PATH=$PYENV_ROOT/shims:$PATH
 export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export FZF_COMPLETION_TRIGGER='~~'
