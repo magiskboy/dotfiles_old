@@ -9,8 +9,12 @@ plugins=(
   virtualenv
   vi-mode
   docker
+  pyenv
   zsh-autosuggestions
   zsh-syntax-highlighting
+  vagrant
+  vagrant-prompt
+  kubectl
 )
 
 source $ZSH/oh-my-zsh.sh

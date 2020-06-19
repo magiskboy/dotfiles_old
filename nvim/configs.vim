@@ -18,6 +18,8 @@ syntax on
 " Don't break line when width line more than width window
 set wrap
 
+set shell=/bin/bash
+
 set regexpengine=1
 
 set noshowcmd
@@ -123,8 +125,8 @@ let g:indentLine_color_term = 239
 " Ignore entries for NERDTree
 let NERDTreeIgnore = [
     \'node_modules', 'bower_components', 'build', 'dist',
-    \'env/', '__pycache__', '.pytest_cache',
-    \'.class'
+    \'env/', 'venv', '__pycache__', '.pytest_cache',
+    \'*.class'
     \]
 
 let NERDTreeMinimalUI = 1

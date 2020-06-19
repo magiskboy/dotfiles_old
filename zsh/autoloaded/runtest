@@ -4,8 +4,8 @@ branch=$1
 submit=$2
 for file in $(rg -l "SC-$branch"); do
     if [[ ! -z $submit ]]; then
-        pytest $file --submit
+        pytest -p no:warnings --tb=short $file --submit
     else
-        pytest $file
+        pytest -p no:warnings --tb=short $file
     fi
 done
