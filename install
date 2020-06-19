@@ -8,26 +8,25 @@ OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 function setup_base() {
     [[ -d $LOCAL/bin ]] && mkdir $LOCAL/bin
     if [[ $OS == "linux" ]]; then
-	BATURL=https://github.com/sharkdp/bat/releases/download/v0.11.0/bat_0.11.0_amd64.deb
-	curl -fLO $BATURL && sudo dpkg -i $(basename $BATURL) && rm -f $(basename $BATURL)
-        sudo apt install tldr ripgrep exuberant-ctags tree htop git curl fzf \
-            pgcli mycli fd-find zsh tmux nodejs npm libffi-dev zlib1g-dev \
-            libbz2-dev libsqlite3-dev #@TODO install ccls
+    apt install -y tldr ripgrep exuberant-ctags tree htop git curl fzf pgcli mycli fd-find zsh tmux \
+        nodejs npm libffi-dev zlib1g-dev libbz2-dev libsqlite3-dev #@TODO install ccls
     else
-        brew install bat tldr ripgrep ctags tree htop git curl fzf \
-            pgcli mycli fdfind zsh tmux ccls node npm
+        brew install bat tldr ripgrep ctags tree htop git curl fzf pgcli mycli fdfind zsh tmux \
+            ccls node npm
     fi
+	BATURL=https://github.com/sharkdp/bat/releases/download/v0.11.0/bat_0.11.0_amd64.deb
+	curl -fLO $BATURL && dpkg -i $(basename $BATURL) && rm -f $(basename $BATURL)
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 }
 
 function setup_docker() {
-    sudo apt install -y docker.io && \
-        sudo groupadd -f docker && \
-        sudo usermod -aG docker $USER && \
+    apt install -y docker.io && \
+        groupadd -f docker && \
+        usermod -aG docker $USER && \
         mkdir -p $HOME/.docker && \
-        sudo chown "$USER":"$USER" $HOME/.docker -R && \
-        sudo chmod g+rwx "$HOME/.docker" -R && \
-        sudo systemctl restart docker
+        chown "$USER":"$USER" $HOME/.docker -R && \
+        chmod g+rwx "$HOME/.docker" -R && \
+        systemctl restart docker
     docker_compose_url="https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)"
     docker_compose_out=$LOCAL/bin/docker-compose
     curl -Lo $docker_compose_url $docker_compose_out && chmod +x $docker_compose_out
@@ -45,7 +44,7 @@ function setup_neovim() {
     python3 -m pip install --user $PY_PACKAGE
     NODE_PACKAGE="dockerfile-language-server-nodejs bash-language-server"
     if [[ $OS == "linux" ]]; then
-        sudo npm i -g $NODE_PACKAGE
+        npm i -g $NODE_PACKAGE
     else
         npm i -g $NODE_PACKAGE
     fi
@@ -131,7 +130,7 @@ function setup_font() {
 
 function setup_nvidia() {
     if [[ $OS == "linux" ]]; then
-        sudo apt-get install linux-headers-$(uname -r) nvidia-legacy-390xx-driver
+        apt install linux-headers-$(uname -r) nvidia-legacy-390xx-driver
     fi
 }
 
