@@ -1,4 +1,4 @@
-# Created by Armin Ronacher github@misuhiko
+# Created by Armin Ronacher github@mitsuhiko
 setopt prompt_subst
 # export LS_COLORS=ExGxFxDxCxHxHxCbCeEbEb
 

@@ -43,6 +43,12 @@ function setup_neovim() {
     PY_PACKAGE="pynvim psutil jedi pylint"
     python -m pip install --user $PY_PACKAGE && \
     python3 -m pip install --user $PY_PACKAGE
+    NODE_PACKAGE="dockerfile-language-server-nodejs bash-language-server"
+    if [[ $OS == "linux" ]]; then
+        sudo npm i -g $NODE_PACKAGE
+    else
+        npm i -g $NODE_PACKAGE
+    fi
     rm -rf ~/.vim ~/.config/nvim && \
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -58,36 +64,38 @@ function setup_java() {
     rm -f $FILENAME
 }
 
+
 function setup_go() {
-    GO_URL=https://dl.google.com/go/go$GO_VERSION.darwin-amd64.tar.gz
+    GO_URL=https://dl.google.com/go/go$GO_VERSION.$OS-amd64.tar.gz
     FILENAME=$(basename $GO_URL)
     curl -LO $GO_URL && \
     tar -xzf $FILENAME -C $LOCAL && \
     rm -f $FILENAME
+    curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 }
 
-function setup_utility() {
-    # dot file for mycli, pgcli
+function setup_dbcli() {
     rm -rf ~/.myclirc ~/.config/pgcli
     ln -sf `pwd`/dbcli/myclirc ~/.myclirc
     mkdir -p ~/.config/pgcli
     ln -sf `pwd`/dbcli/pgclirc ~/.config/pgcli/config
+}
 
-    # setup git tools
+function setup_git() {
     DIFF_SO_FANCY_URL=https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
     NAME=$(basename $DIFF_SO_FANCY_URL)
     curl -O $DIFF_SO_FANCY_URL && mv $NAME $LOCAL/bin/$NAME && \
     chmod +x $LOCAL/bin/$NAME
     ln -sf $(pwd)/git/gitconfig ~/.gitconfig
+}
+
+function setup_tmux() {
+    rm -rf ~/.tmux.conf && \
+    ln -sf $(pwd)/tmux/tmux.conf ~/.tmux.conf
 
     # setup tmux tools
     rm -rf ~/.tmux.conf && \
     ln -sf $(pwd)/tmux/tmux.conf ~/.tmux.conf
-
-    # setup bash
-    rm -rf $HOME/.bashrc $HOME/.profile
-    ln -sf $(pwd)/bash/bashrc $HOME/.bashrc
-    ln -sf $(pwd)/bash/bash_profile $HOME/.bash_profile
 }
 
 function setup_zsh() {
@@ -101,6 +109,12 @@ function setup_zsh() {
     ln -sf $sf $(pwd)/zsh/zprofile $HOME/.zprofile
     ln -sf $sf $(pwd)/zsh/zshenv $HOME/.zshenv
     ln -sf $sf $(pwd)/zsh/zshrc $HOME/.zshrc
+}
+
+function setup_bash() {
+    rm -rf $HOME/.bashrc $HOME/.profile
+    ln -sf $(pwd)/bash/bashrc $HOME/.bashrc
+    ln -sf $(pwd)/bash/bash_profile $HOME/.bash_profile
 }
 
 function setup_font() {
