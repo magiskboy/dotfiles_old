@@ -10,6 +10,7 @@ nmap  ts :TestSuite<cr>
 nmap aa :call OpenFloatTerm()<cr>
 
 nmap <leader>p :call FZF_Wrapper()<cr>
+nmap <leader>w :call RipgrepFzf(expand("<cword>"), 0)<cr>
 nmap <leader>r :Rg<cr>
 nmap <leader>t :Tags<cr>
 
@@ -33,3 +34,14 @@ augroup filetype_python
 augroup END
 
 inoremap <expr><tab>  pumvisible() ? "\<c-n>" : "\<tab>"
+
+" Fast switch tabs
+nmap <leader>1 1gt
+nmap <leader>2 2gt
+nmap <leader>3 3gt
+nmap <leader>4 4gt
+nmap <leader>5 5gt
+nmap <leader>6 6gt
+nmap <leader>7 7gt
+nmap <leader>8 8gt
+nmap <leader>9 9gt

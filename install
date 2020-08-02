@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 LOCAL=$HOME/.local
 MAVEN_VERSION=3.6.3
@@ -8,12 +8,28 @@ OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 function setup_base() {
     [[ -d $LOCAL/bin ]] && mkdir $LOCAL/bin
     if [[ $OS == "linux" ]]; then
-        sudo apt install install bat tldr ripgrep exuberant-ctags \
-            tree htop git curl fzf pgcli mycli fdfind zsh tmux    #@TODO install ccls
+    apt install -y tldr ripgrep exuberant-ctags tree htop git curl fzf pgcli mycli fd-find zsh tmux \
+        nodejs npm libffi-dev zlib1g-dev libbz2-dev libsqlite3-dev #@TODO install ccls
     else
-        brew install bat tldr ripgrep ctags tree htop git curl fzf \
-            pgcli mycli fdfind zsh tmux ccls
+        brew install bat tldr ripgrep ctags tree htop git curl fzf pgcli mycli fdfind zsh tmux \
+            ccls node npm
     fi
+	BATURL=https://github.com/sharkdp/bat/releases/download/v0.11.0/bat_0.11.0_amd64.deb
+	curl -fLO $BATURL && dpkg -i $(basename $BATURL) && rm -f $(basename $BATURL)
+    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+}
+
+function setup_docker() {
+    apt install -y docker.io && \
+        groupadd -f docker && \
+        usermod -aG docker $USER && \
+        mkdir -p $HOME/.docker && \
+        chown "$USER":"$USER" $HOME/.docker -R && \
+        chmod g+rwx "$HOME/.docker" -R && \
+        systemctl restart docker
+    docker_compose_url="https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)"
+    docker_compose_out=$LOCAL/bin/docker-compose
+    curl -Lo $docker_compose_url $docker_compose_out && chmod +x $docker_compose_out
 }
 
 function setup_ssh() {
@@ -23,11 +39,12 @@ function setup_ssh() {
 }
 
 function setup_neovim() {
-    python -m pip install --user pynvim && \
-    python3 -m pip install --user pynvim
+    PY_PACKAGE="pynvim psutil jedi pylint"
+    python -m pip install --user $PY_PACKAGE && \
+    python3 -m pip install --user $PY_PACKAGE
     NODE_PACKAGE="dockerfile-language-server-nodejs bash-language-server"
     if [[ $OS == "linux" ]]; then
-        sudo npm i -g $NODE_PACKAGE
+        npm i -g $NODE_PACKAGE
     else
         npm i -g $NODE_PACKAGE
     fi
@@ -37,18 +54,12 @@ function setup_neovim() {
     ln -sf $(pwd)/nvim ~/.config/nvim
 }
 
-function setup_python() {
-    PY_PACKAGE="pipenv jedi pylint"
-    git clone https://github.com/pyenv/pyenv.git ~/.pyenv && \
-    pip install $PY_PACKAGE
-}
-
 function setup_java() {
     MAVEN_URL=https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.zip
     FILENAME=$(basename $MAVEN_URL)
     curl -LO $MAVEN_URL && \
     unzip $FILENAME -d $LOCAL && \
-    ln -sf $LOCAL/apache-maven-$MAVEN_VERSION/bin/mvn $LOCAL/bin
+    ln -sf $LOCAL/apache-maven-$MAVEN_VERSION/bin/mvn $LOCAL/bin/mvn
     rm -f $FILENAME
 }
 
@@ -71,12 +82,17 @@ function setup_dbcli() {
 
 function setup_git() {
     DIFF_SO_FANCY_URL=https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
-    curl -o $DIFF_SO_FANCY_URL $LOCAL/bin/ && \
-    chmod +x $LOCAL/bin/diff-so-fancy
+    NAME=$(basename $DIFF_SO_FANCY_URL)
+    curl -O $DIFF_SO_FANCY_URL && mv $NAME $LOCAL/bin/$NAME && \
+    chmod +x $LOCAL/bin/$NAME
     ln -sf $(pwd)/git/gitconfig ~/.gitconfig
 }
 
 function setup_tmux() {
+    rm -rf ~/.tmux.conf && \
+    ln -sf $(pwd)/tmux/tmux.conf ~/.tmux.conf
+
+    # setup tmux tools
     rm -rf ~/.tmux.conf && \
     ln -sf $(pwd)/tmux/tmux.conf ~/.tmux.conf
 }
@@ -112,4 +128,12 @@ function setup_font() {
         https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf
 }
 
-eval "setup_$1"
+function setup_nvidia() {
+    if [[ $OS == "linux" ]]; then
+        apt install linux-headers-$(uname -r) nvidia-legacy-390xx-driver
+    fi
+}
+
+for state in $@; do
+    eval "setup_$state"
+done

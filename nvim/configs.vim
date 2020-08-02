@@ -20,6 +20,8 @@ set shell=/bin/bash
 " Don't break line when width line more than width window
 set wrap
 
+set shell=/bin/bash
+
 set regexpengine=1
 
 set noshowcmd
@@ -33,7 +35,7 @@ set autoindent
 set clipboard=unnamed
 
 " Highlight certain column(s).
-set colorcolumn=0
+set colorcolumn=100
 
 set signcolumn=yes
 
@@ -125,8 +127,8 @@ let g:indentLine_color_term = 239
 " Ignore entries for NERDTree
 let NERDTreeIgnore = [
     \'node_modules', 'bower_components', 'build', 'dist',
-    \'env/', '__pycache__', '.pytest_cache',
-    \'.class'
+    \'env/', 'venv', '__pycache__', '.pytest_cache',
+    \'*.class'
     \]
 
 let NERDTreeMinimalUI = 1
@@ -224,11 +226,15 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 autocmd BufWritePost * GitGutter
 
-if executable('rg')
-    let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-    set grepprg=rg\ --vimgrep
-    command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-endif
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+function! RipgrepFzf(query, fullscreen)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
 function FZF_Wrapper()
     function! s:edit_file(item)
         let l:pos = stridx(a:item, ' ')
@@ -289,7 +295,27 @@ hi EndOfBuffer cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=bg
 hi VertSplit cterm=NONE ctermbg=NONE ctermfg=234 gui=NONE guibg=NONE guifg=grey
 hi LineNr cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=NONE
 hi Pmenu guibg=#444934 guifg=0
-hi ColorColumn guibg=#444543
-hi MyGroup gui=bold
+hi SignColumn guibg=NONE
+hi ColorColumn guibg=#262626
 hi Comment gui=italic
+hi MyGroup gui=bold
 match MyGroup /./
+
+" Jump to tab: <Leader>t
+function s:tabName(n)
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    return fnamemodify(bufname(buflist[winnr - 1]), ':t')
+endfunction
+
+function! s:jumpToTab(line)
+    let pair = split(a:line, ' ')
+    let cmd = pair[0].'gt'
+    execute 'normal' cmd
+endfunction
+
+nnoremap <silent> <Leader>t :call fzf#run({
+\   'source':  reverse(map(range(1, tabpagenr('$')), 'v:val." "." ".tabName(v:val)')),
+\   'sink':    function('<sid>jumpToTab'),
+\   'down':    tabpagenr('$') + 2
+\ })<CR>

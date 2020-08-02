@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+# 1. Clone source code neovim from github
+git clone git@github.com:MaskRay/ccls.git && cd ccls
+
+# 2. Install the dependencies using a package manager.
+sudo apt install clang cmake libclang-dev llvm-dev rapidjson-dev
+cmake -H. -BRelease -DUSE_SYSTEM_RAPIDJSON=OFF
+cmake --build Release
