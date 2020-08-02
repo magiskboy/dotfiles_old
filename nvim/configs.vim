@@ -53,7 +53,7 @@ set noignorecase
 set incsearch
 
 " Do not redraw the screen while
-set lazyredraw
+" set lazyredraw
 
 " Hide mouse pointer while typing.
 set mousehide
@@ -179,7 +179,8 @@ let g:airline_highlighting_cache = 1
 let b:ale_linters = {
     \'javascript': ['eslint'],
     \'typescript': ['tslint'],
-    \'python': ['pylint']
+    \'python': ['pylint'],
+    \'c': ['ccls']
     \}
 
 " Setting icon before error/warning ale

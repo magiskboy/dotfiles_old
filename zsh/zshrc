@@ -9,6 +9,7 @@ plugins=(
   git-prompt
   git-auto-fetch
   gitignore
+  pip
   pipenv
   pyenv
   django
@@ -19,6 +20,7 @@ plugins=(
   kubectl
   vi-mode
   jsontools
+  minikube
   zsh-autosuggestions
   zsh-syntax-highlighting
 )

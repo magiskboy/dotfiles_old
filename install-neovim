@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+prerequirement automake
 # 1. Clone source code neovim from github
 git clone git@github.com:neovim/neovim.git && cd neovim
 

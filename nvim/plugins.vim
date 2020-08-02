@@ -4,12 +4,11 @@ set rtp+=~/.config/nvim/bundle/vim-plug
 
 call plug#begin('~/.vim/bundle')
 
-" =================== UI =======================
 " File explore
 Plug 'scrooloose/nerdtree'
 
-" Show changed git status in sign column
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 " Indent guild line
 Plug 'Yggdroot/indentLine'
@@ -20,31 +19,30 @@ Plug 'vim-airline/vim-airline'
 " Vim tag bar
 Plug 'majutsushi/tagbar'
 
-Plug 'tpope/vim-surround'
-
-Plug 'tomasr/molokai'
-
-" ================ Utilities ==================
 " Asynchronous syntax checker
 Plug 'w0rp/ale'
+
+Plug 'tpope/vim-surround'
+
+" Solid pack language syntax highlight
+Plug 'sheerun/vim-polyglot'
+
+Plug 'tomasr/molokai'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Code completion engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Solid pack language syntax highlight
-Plug 'sheerun/vim-polyglot'
+Plug 'mattn/emmet-vim'
+Plug 'alvan/vim-closetag'
 
-" Auto fill closer chracters
+" Auto fill closer characters
 Plug 'jiangmiao/auto-pairs'
 
 " File search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
-" Git wrapper
-Plug 'tpope/vim-fugitive'
 
 " Helper for UNIX
 Plug 'tpope/vim-eunuch'
