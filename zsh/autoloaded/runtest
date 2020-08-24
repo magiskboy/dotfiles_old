@@ -2,7 +2,7 @@
 
 branch=$1
 submit=$2
-for file in $(rg -l "SC-$branch"); do
+for file in $(rg -l "CATALOGUE-$branch"); do
     if [[ ! -z $submit ]]; then
         pytest -p no:warnings --tb=short $file --submit
     else

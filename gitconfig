@@ -135,7 +135,15 @@
     autocrlf = input
     editor = nvim
     excludesfile = ~/.gitignore
-    pager = diff-so-fancy | less --tabs=4 -RFX
+    pager = delta
+
+[delta]
+    syntax-theme = Monokai Extended
+    side-by-side = true
+    navigate = true
+
+[interactive]
+    diffFilter = delta --color-only
 
 [diff]
 
@@ -188,3 +196,22 @@
     #     by the local ones
 
     path = ~/.gitconfig.local
+
+[merge]
+  tool = vimdiff
+
+[mergetool]
+  prompt = true
+
+[mergetool "vimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[difftool]
+    prompt = false
+
+[diff]
+    tool = vimdiff
+
+[pull]
+	rebase = false
+	ff = only

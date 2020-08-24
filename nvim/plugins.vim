@@ -7,6 +7,8 @@ call plug#begin('~/.vim/bundle')
 " File explore
 Plug 'scrooloose/nerdtree'
 
+Plug 'editorconfig/editorconfig-vim'
+
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
@@ -16,26 +18,24 @@ Plug 'Yggdroot/indentLine'
 " Vim modern status line
 Plug 'vim-airline/vim-airline'
 
+Plug 'vim-airline/vim-airline-themes'
+
 " Vim tag bar
 Plug 'majutsushi/tagbar'
 
 " Asynchronous syntax checker
 Plug 'w0rp/ale'
 
-Plug 'tpope/vim-surround'
-
 " Solid pack language syntax highlight
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 
-Plug 'tomasr/molokai'
+" Plug 'rakr/vim-one'
+Plug 'ayu-theme/ayu-vim'
 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'rust-lang/rust.vim'
 
 " Code completion engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'mattn/emmet-vim'
-Plug 'alvan/vim-closetag'
 
 " Auto fill closer characters
 Plug 'jiangmiao/auto-pairs'
@@ -51,8 +51,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'janko/vim-test'
 
 Plug 'tpope/vim-commentary'
-
-Plug 'heavenshell/vim-pydocstring'
 
 call plug#end()
 

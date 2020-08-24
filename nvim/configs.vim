@@ -5,7 +5,8 @@ set termguicolors
 
 set t_Co=256
 
-colorscheme molokai
+colorscheme ayu
+let ayucolor="dark"
 
 syntime on
 
@@ -20,8 +21,6 @@ set shell=/bin/bash
 " Don't break line when width line more than width window
 set wrap
 
-set shell=/bin/bash
-
 set regexpengine=1
 
 set noshowcmd
@@ -35,7 +34,7 @@ set autoindent
 set clipboard=unnamed
 
 " Highlight certain column(s).
-set colorcolumn=100
+set colorcolumn=0
 
 set signcolumn=yes
 
@@ -128,7 +127,7 @@ let g:indentLine_color_term = 239
 let NERDTreeIgnore = [
     \'node_modules', 'bower_components', 'build', 'dist',
     \'env/', 'venv', '__pycache__', '.pytest_cache',
-    \'*.class'
+    \'*.class','*.egg-info/'
     \]
 
 let NERDTreeMinimalUI = 1
@@ -143,32 +142,14 @@ let g:NERDTreeStatusline = ''
 let g:AutoPairsShortcutToggle = ""
 
 " ============= Vim airline ==============
-let g:airline_extensions = ['branch', 'hunks', 'ale']
+let g:airline_extensions = ['branch', 'hunks', 'ale', 'coc', 'tabline']
+
+let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'y', 'z', 'warning', 'error']]
 
 " Do not draw separators for empty sections (only for the active window) >
 let g:airline_skip_empty_sections = 1
 
-" Format vim airline
-let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'y', 'z', 'warning', 'error']]
-
-" format tabline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#coc#enabled = 1
-
-" Add clock in status line
-function! AirlineInit()
-  let g:airline_section_z = airline#section#create([g:airline_section_z, g:airline_symbols.space, ' %{strftime("%H:%M")}'])
-endfunction
-autocmd User AirlineAfterInit call AirlineInit()
-
-" Configure error/warning section to use ale.nvim
-let airline#extensions#ale = {
-    \'error_symbol': 'E:',
-    \'warning_synbol': 'W:'
-    \}
+let g:airline_theme='simple'
 
 " Disable vim-airline in preview mode
 let g:airline_exclude_preview = 1
@@ -176,12 +157,29 @@ let g:airline_exclude_preview = 1
 " Enable caching of syntax highlighting groups
 let g:airline_highlighting_cache = 1
 
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ' '
+let g:airline#extensions#tabline#right_alt_sep = ' '
+
+" Configure error/warning section to use ale.nvim
+let airline#extensions#ale = {
+    \'error_symbol': 'E:',
+    \'warning_synbol': 'W:'
+    \}
 "============== ALE ================
+let g:ale_enabled = 0
+
 " Define ALE linter
 let b:ale_linters = {
     \'javascript': ['eslint'],
     \'typescript': ['tslint'],
-    \'python': ['pylint'],
+    \'python': ['pylint', 'mypy'],
     \'c': ['ccls']
     \}
 
@@ -199,9 +197,13 @@ let g:ale_set_highlights = 0
 " Setting ale window
 let g:ale_open_list = 0
 
+let g:rust_clip_command = 'pbcopy'
+
 " ============= Tagbar ===============
 " Set dropdown for tagbar
 let g:tagbar_iconchars = ['▸', '▾']
+
+let g:one_allow_italics = 1
 
 " ========== vim-test ============
 let test#strategy = {
@@ -210,8 +212,9 @@ let test#strategy = {
   \ 'suite':   'basic',
 \}
 
-hi RedundantWhitespace cterm=NONE ctermbg=white ctermfg=NONE gui=NONE guibg=white guifg=NONE
-match RedundantWhitespace /\s\+$\| \+\zs\t/
+
+let g:coc_enabled = 0
+
 autocmd BufWritePost * :silent! %s/\s\+$\| \+\zs\t//g
 
 augroup indent_file
@@ -225,97 +228,3 @@ autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 autocmd BufWritePost * GitGutter
-
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-function! RipgrepFzf(query, fullscreen)
-    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-    let initial_command = printf(command_fmt, shellescape(a:query))
-    let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-function FZF_Wrapper()
-    function! s:edit_file(item)
-        let l:pos = stridx(a:item, ' ')
-        let l:file_path = a:item[pos+1:-1]
-        execute 'silent e' l:file_path
-    endfunction
-    function! s:files()
-        let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
-        return l:files
-    endfunction
-    call fzf#run({
-        \'source': <sid>files(),
-        \ 'sink': function('s:edit_file'),
-        \ 'options': '-m --preview "bat {} --color=always --theme=\"Monokai Extended Origin\""',
-        \ 'down': '100%' })
-endfunction
-
-function! OpenFloatTerm()
-  let height = float2nr((&lines - 2) / 1.5)
-  let row = float2nr((&lines - height) / 2)
-  let width = float2nr(&columns / 1.5)
-  let col = float2nr((&columns - width) / 2)
-  " Border Window
-  let border_opts = {
-    \ 'relative': 'editor',
-    \ 'row': row - 1,
-    \ 'col': col - 2,
-    \ 'width': width + 4,
-    \ 'height': height + 2,
-    \ 'style': 'minimal'
-    \ }
-  let border_buf = nvim_create_buf(v:false, v:true)
-  let s:border_win = nvim_open_win(border_buf, v:true, border_opts)
-  " Main Window
-  let opts = {
-    \ 'relative': 'editor',
-    \ 'row': row,
-    \ 'col': col,
-    \ 'width': width,
-    \ 'height': height,
-    \ 'style': 'minimal'
-    \ }
-  let buf = nvim_create_buf(v:false, v:true)
-  let win = nvim_open_win(buf, v:true, opts)
-  terminal
-  startinsert
-  " Hook up TermClose event to close both terminal and border windows
-  autocmd TermClose * ++once :q | call nvim_win_close(s:border_win, v:true)
-endfunction
-
-hi GitGutterAdd cterm=BOLD ctermbg=NONE ctermfg=green gui=BOLD guibg=NONE guifg=lightgreen
-hi GitGutterDelete cterm=BOLD ctermbg=NONE ctermfg=red gui=BOLD guibg=NONE guifg=red
-hi GitGutterChange cterm=BOLD ctermbg=NONE ctermfg=lightblue gui=BOLD guibg=NONE guifg=lightblue
-hi ALEWarning cterm=BOLD ctermbg=NONE ctermfg=NONE gui=BOLD guibg=NONE guifg=NONE
-hi ALEErrorSign cterm=BOLD ctermbg=NONE ctermfg=red gui=BOLD guibg=NONE guifg=red
-hi ALEWarningSign cterm=BOLD ctermbg=NONE ctermfg=white gui=BOLD guibg=NONE guifg=yellow
-hi EndOfBuffer cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=bg
-hi VertSplit cterm=NONE ctermbg=NONE ctermfg=234 gui=NONE guibg=NONE guifg=grey
-hi LineNr cterm=NONE ctermbg=NONE ctermfg=NONE gui=NONE guibg=NONE guifg=NONE
-hi Pmenu guibg=#444934 guifg=0
-hi SignColumn guibg=NONE
-hi ColorColumn guibg=#262626
-hi Comment gui=italic
-hi MyGroup gui=bold
-match MyGroup /./
-
-" Jump to tab: <Leader>t
-function s:tabName(n)
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    return fnamemodify(bufname(buflist[winnr - 1]), ':t')
-endfunction
-
-function! s:jumpToTab(line)
-    let pair = split(a:line, ' ')
-    let cmd = pair[0].'gt'
-    execute 'normal' cmd
-endfunction
-
-nnoremap <silent> <Leader>t :call fzf#run({
-\   'source':  reverse(map(range(1, tabpagenr('$')), 'v:val." "." ".tabName(v:val)')),
-\   'sink':    function('<sid>jumpToTab'),
-\   'down':    tabpagenr('$') + 2
-\ })<CR>

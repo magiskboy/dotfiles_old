@@ -3,43 +3,111 @@
 LOCAL=$HOME/.local
 MAVEN_VERSION=3.6.3
 GO_VERSION=1.14.2
+PY_VERSION=3.8.2
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 
+
 function setup_base() {
+    # ==================== BASE PACKAGE ===================
     [[ -d $LOCAL/bin ]] && mkdir $LOCAL/bin
     if [[ $OS == "linux" ]]; then
-    apt install -y tldr ripgrep exuberant-ctags tree htop git curl fzf pgcli mycli fd-find zsh tmux \
-        nodejs npm libffi-dev zlib1g-dev libbz2-dev libsqlite3-dev #@TODO install ccls
+        apt install -y tldr ripgrep exuberant-ctags tree htop git curl fzf pgcli mycli fd-find zsh tmux \
+            nodejs npm libffi-dev zlib1g-dev libbz2-dev libsqlite3-dev #@TODO install ccls
+        BATURL=https://github.com/sharkdp/bat/releases/download/v0.11.0/bat_0.11.0_amd64.deb
+        curl -fLO $BATURL && dpkg -i $(basename $BATURL) && rm -f $(basename $BATURL)
+        curl -fsSL https://starship.rs/install.sh | bash
     else
-        brew install bat tldr ripgrep ctags tree htop git curl fzf pgcli mycli fdfind zsh tmux \
-            ccls node npm
+        brew install bat tldr ripgrep ctags tree htop git curl fzf pgcli mycli fd zsh tmux ccls node npm starship git-delta
     fi
-	BATURL=https://github.com/sharkdp/bat/releases/download/v0.11.0/bat_0.11.0_amd64.deb
-	curl -fLO $BATURL && dpkg -i $(basename $BATURL) && rm -f $(basename $BATURL)
-    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-}
 
-function setup_docker() {
-    apt install -y docker.io && \
-        groupadd -f docker && \
-        usermod -aG docker $USER && \
-        mkdir -p $HOME/.docker && \
-        chown "$USER":"$USER" $HOME/.docker -R && \
-        chmod g+rwx "$HOME/.docker" -R && \
-        systemctl restart docker
-    docker_compose_url="https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)"
-    docker_compose_out=$LOCAL/bin/docker-compose
-    curl -Lo $docker_compose_url $docker_compose_out && chmod +x $docker_compose_out
-}
+    DIFF_SO_FANCY_URL=https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
+    SO_DIFF_FANCY_NAME=$(basename $DIFF_SO_FANCY_URL)
+    curl -O $DIFF_SO_FANCY_URL && mv $SO_DIFF_FANCY_NAME $LOCAL/bin/$SO_DIFF_FANCY_NAME && \
+    chmod +x $LOCAL/bin/$SO_DIFF_FANCY_NAME
 
-function setup_ssh() {
+    git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv && \
+    git clone https://github.com/pyenv/pyenv-virtualenv.git $HOME/.pyenv/plugins/pyenv-virtualenv
+
+    # ==================== RC FILES ====================
+    rm -rf $HOME/.myclirc $HOME/.config/pgcli
+    ln -sf `pwd`/dbcli/myclirc $HOME/.myclirc
+    mkdir -p $HOME/.config/pgcli
+    ln -sf `pwd`/dbcli/pgclirc $HOME/.config/pgcli/config
+    ln -sf $(pwd)/gitconfig $HOME/.gitconfig
+
+    rm -rf $HOME/.tmux.conf && \
+    ln -sf $(pwd)/tmux/tmux.conf $HOME/.tmux.conf && \
+    ln -sf $(pwd)/tmux/tmux.theme.conf $HOME/.tmux.theme.conf
+
+    # ==================== FONTS =======================
+    local FONTDIR
+    if [[ $OS == "darwin" ]]; then
+        FONTDIR=$HOME/Library/Fonts
+    else
+        FONTDIR=$LOCAL/share/fonts
+    fi
+    [ -d $FONTDIR ] && mkdir -p $FONTDIR
+    curl -fLo "$FONTDIR/Hack Nerd Font Complete.otf" \
+        https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf
+
+    # ==================== SHELL ========================
+    rm -rf $HOME/.zshrc $HOME/.oh-my-zsh $HOME/.zshrc $HOME/.zshenv $HOME/.zlogin $HOME/.zprofile && \
+    ln -sf $(pwd)/zsh/zshrc $HOME/.zshrc && \
+    ln -sf $(pwd)/zsh/oh-my-zsh $HOME/.oh-my-zsh && \
+    ln -sf $(pwd)/zsh/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions && \
+    ln -sf $(pwd)/zsh/zsh-syntax-highlighting $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && \
+    ln -sf $(pwd)/zsh/themes/nkthanh.zsh-theme $HOME/.oh-my-zsh/custom/themes && \
+    ln -sf $(pwd)/zsh/zlogin $HOME/.zlogin && \
+    ln -sf $(pwd)/zsh/zprofile $HOME/.zprofile && \
+    ln -sf $(pwd)/zsh/zshenv $HOME/.zshenv && \
+    ln -sf $(pwd)/zsh/zshrc $HOME/.zshrc && \
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k && \
+    git clone --depth=1 https://github.com/agkozak/zsh-z ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-z
+
+    rm -rf $HOME/.bashrc && ln -sf $(pwd)/bashrc $HOME/.bashrc
+
+    # ====================== SSH ========================
     [[ ! -d $HOME/.ssh ]] && mkdir $HOME/.ssh
     ln -sf $(pwd)/ssh-config $HOME/.ssh/config
     ssh-keygen -f $HOME/.ssh/id_rsa
+
+    ln -sf $(pwd)/starship.toml $HOME/.config/starship.toml
+}
+
+function setup_buf() {
+    function downloader() {
+        local BINARY_NAME=$1
+        local VERSION="0.23.0"
+        curl -sSL \
+            "https://github.com/bufbuild/buf/releases/download/v${VERSION}/${BINARY_NAME}-$(uname -s)-$(uname -m)" \
+                -o "${LOCAL}/bin/${BINARY_NAME}" && \
+        chmod +x "${LOCAL}/bin/${BINARY_NAME}"
+    }
+    for BIN in "buf" "protoc-gen-buf-check-breaking" "protoc-gen-buf-check-lint"; do
+        echo "Installing $BIN"
+        downloader $BIN
+    done
+}
+
+function setup_docker() {
+    if [[ $OS == "linux" ]]; then
+        apt install -y docker.io && \
+            groupadd -f docker && \
+            usermod -aG docker $USER && \
+            mkdir -p $HOME/.docker && \
+            chown "$USER":"$USER" $HOME/.docker -R && \
+            chmod g+rwx "$HOME/.docker" -R && \
+            systemctl restart docker
+        docker_compose_url="https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)"
+        docker_compose_out=$LOCAL/bin/docker-compose
+        curl -Lo $docker_compose_url $docker_compose_out && chmod +x $docker_compose_out
+    else
+        brew install docker docker-compose
+    fi
 }
 
 function setup_neovim() {
-    PY_PACKAGE="pynvim psutil jedi pylint"
+    PY_PACKAGE="pynvim jedi pylint"
     python -m pip install --user $PY_PACKAGE && \
     python3 -m pip install --user $PY_PACKAGE
     NODE_PACKAGE="dockerfile-language-server-nodejs bash-language-server"
@@ -48,10 +116,10 @@ function setup_neovim() {
     else
         npm i -g $NODE_PACKAGE
     fi
-    rm -rf ~/.vim ~/.config/nvim && \
-    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    rm -rf $HOME/.vim $HOME/.config/nvim && \
+    curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    ln -sf $(pwd)/nvim ~/.config/nvim
+    ln -sf $(pwd)/nvim $HOME/.config/nvim
 }
 
 function setup_java() {
@@ -63,7 +131,6 @@ function setup_java() {
     rm -f $FILENAME
 }
 
-
 function setup_go() {
     GO_URL=https://dl.google.com/go/go$GO_VERSION.$OS-amd64.tar.gz
     FILENAME=$(basename $GO_URL)
@@ -71,61 +138,6 @@ function setup_go() {
     tar -xzf $FILENAME -C $LOCAL && \
     rm -f $FILENAME
     curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-}
-
-function setup_dbcli() {
-    rm -rf ~/.myclirc ~/.config/pgcli
-    ln -sf `pwd`/dbcli/myclirc ~/.myclirc
-    mkdir -p ~/.config/pgcli
-    ln -sf `pwd`/dbcli/pgclirc ~/.config/pgcli/config
-}
-
-function setup_git() {
-    DIFF_SO_FANCY_URL=https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
-    NAME=$(basename $DIFF_SO_FANCY_URL)
-    curl -O $DIFF_SO_FANCY_URL && mv $NAME $LOCAL/bin/$NAME && \
-    chmod +x $LOCAL/bin/$NAME
-    ln -sf $(pwd)/git/gitconfig ~/.gitconfig
-}
-
-function setup_tmux() {
-    rm -rf ~/.tmux.conf && \
-    ln -sf $(pwd)/tmux/tmux.conf ~/.tmux.conf
-
-    # setup tmux tools
-    rm -rf ~/.tmux.conf && \
-    ln -sf $(pwd)/tmux/tmux.conf ~/.tmux.conf
-}
-
-function setup_zsh() {
-    rm -rf ~/.zshrc ~/.oh-my-zsh ~/.zshrc ~/.zshenv ~/.zlogin ~/.zprofile && \
-    ln -sf $(pwd)/zsh/zshrc $HOME/.zshrc && \
-    ln -sf $(pwd)/zsh/oh-my-zsh $HOME/.oh-my-zsh && \
-    ln -sf $(pwd)/zsh/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions && \
-    ln -sf $(pwd)/zsh/zsh-syntax-highlighting $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && \
-    ln -sf $(pwd)/zsh/themes/nkthanh.zsh-theme $HOME/.oh-my-zsh/custom/themes
-    ln -sf $(pwd)/zsh/zlogin $HOME/.zlogin
-    ln -sf $sf $(pwd)/zsh/zprofile $HOME/.zprofile
-    ln -sf $sf $(pwd)/zsh/zshenv $HOME/.zshenv
-    ln -sf $sf $(pwd)/zsh/zshrc $HOME/.zshrc
-}
-
-function setup_bash() {
-    rm -rf $HOME/.bashrc $HOME/.profile
-    ln -sf $(pwd)/bash/bashrc $HOME/.bashrc
-    ln -sf $(pwd)/bash/bash_profile $HOME/.bash_profile
-}
-
-function setup_font() {
-    local FONTDIR
-    if [[ $OS == "darwin" ]]; then
-        FONTDIR=$HOME/Library/Fonts
-    else
-        FONTDIR=$LOCAL/share/fonts
-    fi
-    [ -d $FONTDIR ] && mkdir -p $FONTDIR
-    curl -fLo "$FONTDIR/Hack Nerd Font Complete.otf" \
-        https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf
 }
 
 function setup_nvidia() {

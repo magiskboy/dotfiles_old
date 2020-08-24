@@ -2,3 +2,5 @@ tmux/plugins/*
 !tmux/plugins/tpm
 *.log
 tags
+*.zwc
+*.old

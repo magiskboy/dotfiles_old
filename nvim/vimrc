@@ -1,4 +1,7 @@
-set number numberwidth=5 relativenumber
+filetype plugin on
+syntax on
+
+set number numberwidth=5 norelativenumber
 
 set tabstop=4 shiftwidth=4 expandtab
 
